@@ -25,4 +25,26 @@ public class MakeAnInquiryRequestPOJO {
     private String kode_cabang;
     private String amount;
     private File userFile;
+
+    @Override
+    public String toString() {
+        return "{\n" +
+                "  \"domisili\": " + domisili + ",\n" +
+                "  \"nama\": \"" + nama + "\",\n" +
+                "  \"no_hp\": \"" + no_hp + "\",\n" +
+                "  \"tanggal_lahir\": \"" + tanggal_lahir + "\",\n" +
+                "  \"tempat_lahir\": \"" + tempat_lahir + "\",\n" +
+                "  \"jenis_kelamin\": \"" + jenis_kelamin + "\",\n" +
+                "  \"status_kawin\": " + status_kawin + ",\n" +
+                "  \"kode_kelurahan\": \"" + kode_kelurahan + "\",\n" +
+                "  \"jalan\": \"" + jalan + "\",\n" +
+                "  \"ibu_kandung\": \"" + ibu_kandung + "\",\n" +
+                "  \"kewarganegaraan\": " + kewarganegaraan + ",\n" +
+                "  \"jenis_identitas\": " + jenis_identitas + ",\n" +
+                "  \"no_identitas\": \"" + no_identitas + "\",\n" +
+                "  \"kode_cabang\": \"" + kode_cabang + "\",\n" +
+                "  \"amount\": \"" + amount + "\",\n" +
+                "  \"userFile\": \"" + (userFile != null ? userFile.getName() : "") + "\"\n" +
+                "}";
+    }
 }
