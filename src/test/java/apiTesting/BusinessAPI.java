@@ -136,6 +136,7 @@ public class BusinessAPI {
                 .when()
                 .post("/billing/sb/payment")
                 .then()
+                .log().body()
                 .spec(responseSpecificationBuilders.getResponseSpecification_MakePayment(StatusCodes.SUCCESS.getStatusCode()))
                 .extract().response();
 

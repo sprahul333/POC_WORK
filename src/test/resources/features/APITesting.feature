@@ -2,7 +2,7 @@ Feature: API Testing End to End Flow
 
   @EndToEndFlow @English @APITesting
   Scenario Outline: Automating End to End Flow
-#    Given User Logins to the Application
+    Given User Logins to the Application
     When I Make An Enquiry with the following details
       | domisili        | 1                         |
       | nama            | REYNALDI PRAMA OCTAVIALLY |
