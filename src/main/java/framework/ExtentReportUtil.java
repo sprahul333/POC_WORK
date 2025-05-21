@@ -7,9 +7,9 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 public class ExtentReportUtil {
 
     //Configuring my Extent Reports Object
-    public ExtentReports getExtentReports() {
+    public ExtentReports getExtentReports(String testCaseName) {
 
-        ExtentSparkReporter sparkReporter = new ExtentSparkReporter("API_TESTING_REPORTS.html");
+        ExtentSparkReporter sparkReporter = new ExtentSparkReporter(PathUtils.getExtentReportsPath(testCaseName));
         sparkReporter.config().setReportName("XYZ Banking Test Cases");
         sparkReporter.config().setDocumentTitle("Automation Test Results");
         sparkReporter.config().setTheme(Theme.STANDARD);
