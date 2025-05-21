@@ -2,6 +2,7 @@ package specBuilders;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import pojo.CreateVAPOJO;
@@ -34,7 +35,8 @@ public class RequestSpecificationBuilders {
                         .addFilter(new AllureRestAssured())
                                 .addHeader("Authorization",token)
                         .addHeader("Cookie","9c192e374d912db54b16479e46b977b0=ecbf2a4646a847f11a90b61c42af64b8")
-                        .setBaseUri("https://pds-api-app-backend-pds-qa-modernisasi-digital-dev.apps.ocp-dev.pegadaian.co.id");
+                        .setBaseUri("https://pds-api-app-backend-pds-qa-modernisasi-digital-dev.apps.ocp-dev.pegadaian.co.id")
+                .log(LogDetail.BODY);
 
         return requestSpecBuilder.build();
     }
@@ -49,7 +51,8 @@ public class RequestSpecificationBuilders {
                 .addHeader("Authorization","Basic YWRtaW46YWRtaW4=")
                 .addHeader("Cookie","9c192e374d912db54b16479e46b977b0=ecbf2a4646a847f11a90b61c42af64b8")
                 .setBaseUri("https://billing-service-v2-switching-dev.apps.ocp-dev.pegadaian.co.id")
-                .setBody(inquirePaymentPOJO);
+                .setBody(inquirePaymentPOJO)
+                .log(LogDetail.BODY);
 
         return requestSpecBuilder.build();
     }
@@ -64,7 +67,7 @@ public class RequestSpecificationBuilders {
                 .addHeader("Authorization","Basic YWRtaW46YWRtaW4=")
                 .addHeader("Cookie","9c192e374d912db54b16479e46b977b0=ecbf2a4646a847f11a90b61c42af64b8")
                 .setBaseUri("https://billing-service-v2-switching-dev.apps.ocp-dev.pegadaian.co.id")
-                .setBody(makePaymentPOJO);
+                .setBody(makePaymentPOJO).log(LogDetail.BODY);
 
         return requestSpecBuilder.build();
     }
@@ -77,7 +80,8 @@ public class RequestSpecificationBuilders {
                 .addHeader("Cookie","9c192e374d912db54b16479e46b977b0=ecbf2a4646a847f11a90b61c42af64b8")
                 .addFilter(new AllureRestAssured())
                 .addHeader("Authorization",token)
-                .setBaseUri("https://pds-api-app-backend-pds-qa-modernisasi-digital-dev.apps.ocp-dev.pegadaian.co.id");
+                .setBaseUri("https://pds-api-app-backend-pds-qa-modernisasi-digital-dev.apps.ocp-dev.pegadaian.co.id")
+                .log(LogDetail.BODY);
 
         requestSpecBuilder.addMultiPart("domisili", String.valueOf(1))
                 .addMultiPart("nama", "REYNALDI PRAMA OCTAVIALLY")
