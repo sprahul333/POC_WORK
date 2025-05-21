@@ -1,4 +1,4 @@
-package framework;
+package framework.constants;
 
 public enum StatusCodes {
 

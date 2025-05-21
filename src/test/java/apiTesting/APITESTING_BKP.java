@@ -2,7 +2,7 @@ package apiTesting;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import framework.StatusCodes;
+import framework.constants.StatusCodes;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import pojo.*;
