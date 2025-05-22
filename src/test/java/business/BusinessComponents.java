@@ -2,9 +2,7 @@ package business;
 
 import framework.PathUtils;
 import framework.ReusableLibrary;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import pages.*;
 
@@ -67,8 +65,12 @@ public class BusinessComponents extends ReusableLibrary {
 
             try {
                 seleniumUtils.performMouseHover(driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i),"Capture Image");
+
+                if(i==elementUtils.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).size()-1)
+                    customerData.performSendKeysOnPhoneNumber();
                 seleniumUtils.clickOnElement(driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i),"Capture Image");
             }
+
 
             catch (ElementClickInterceptedException e1)
             {
@@ -80,6 +82,12 @@ public class BusinessComponents extends ReusableLibrary {
 //                ((JavascriptExecutor)driver).executeScript("window.scrollTo(0,"+y+")");
 //
 //                a1.moveToElement(driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i)).build().perform();
+                seleniumUtils.performWheelScroll(driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i));
+                driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i).click();
+            }
+
+            catch(ElementNotInteractableException e4)
+            {
                 seleniumUtils.performWheelScroll(driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i));
                 driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i).click();
             }

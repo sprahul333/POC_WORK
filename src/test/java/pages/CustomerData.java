@@ -3,6 +3,7 @@ package pages;
 import framework.PathUtils;
 import framework.ReusableLibrary;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
 import java.nio.file.Path;
 
@@ -36,7 +37,7 @@ public class CustomerData extends ReusableLibrary {
     }
 
     private By txt_NeighborhoodAssociation=By.xpath("//input[@id='txt_Rt']");
-    private By txt_CommunityAssociation=By.xpath("//input[@id='txt_Rw']");
+    private By txt_CommunityAssociation=By.xpath("//input[@id='txt_rw']");
 
     private By btn_CheckIndonesianPopulationAdministration=By.xpath("//span[text()='Cek Dukcapil']");
 
@@ -86,6 +87,11 @@ public class CustomerData extends ReusableLibrary {
         seleniumUtils.enterData(txt_PhoneNumber,phoneNumber,"Phone Number");
     }
 
+    public void performSendKeysOnPhoneNumber()
+    {
+        elementUtils.findElement(txt_PhoneNumber).sendKeys(Keys.DOWN);
+    }
+
     public void enterPinCode(String pinCode)
     {
         seleniumUtils.enterData(btn_PinCode,pinCode,"Pin Code");
@@ -94,6 +100,8 @@ public class CustomerData extends ReusableLibrary {
 
     public void selectSubDistrict(String subDistrict)
     {
+        jsFunctions.scrollToElement(elementUtils.findElement(btn_SubDistrict));
+        PathUtils.applySleep(2000);
         seleniumUtils.clickOnElement(btn_SubDistrict,"Sub District");
         seleniumUtils.clickOnElement(option_SubDistrict(subDistrict),subDistrict+" option");
     }

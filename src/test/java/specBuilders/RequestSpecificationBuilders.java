@@ -65,7 +65,6 @@ public class RequestSpecificationBuilders {
         requestSpecBuilder.setContentType(ContentType.JSON)
                 .addFilter(new AllureRestAssured())
                 .addHeader("Authorization","Basic YWRtaW46YWRtaW4=")
-                .addHeader("Cookie","9c192e374d912db54b16479e46b977b0=ecbf2a4646a847f11a90b61c42af64b8")
                 .setBaseUri("https://billing-service-v2-switching-dev.apps.ocp-dev.pegadaian.co.id")
                 .setBody(makePaymentPOJO).log(LogDetail.BODY);
 

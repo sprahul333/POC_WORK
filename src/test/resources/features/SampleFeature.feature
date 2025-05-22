@@ -3,6 +3,7 @@ Feature: Submit Product Application (Non-Pawn)
   Background:
     Given the Account Officer is logged in
 
+    @RegressionSuite @CreateLoanApplication
   Scenario: Successful submission of product AMANAH
     Given the Account Officer is on the Non-Pawn Application page
     And the Account Officer fills in the application data with disbursement outlet "CPS KRAMAT RAYA", application purpose "PRODUKTIF",  loan purpose "INVESTASI", rubric "KENDARAAN", loan amount "32000000", and product "AMANAH"

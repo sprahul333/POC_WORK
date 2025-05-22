@@ -149,9 +149,11 @@ public class BusinessAPI extends ReusableLibrary {
     {
         Map<String, String> data = dataTable.asMap(String.class, String.class);
 
+        String amount=data.getOrDefault("amount","81234");
+        String terminalId=inquirePaymentPOJO.getTerminalId();
         MakePaymentPOJO makePaymentPOJO=MakePaymentPOJO.builder()
-                .terminalId(inquirePaymentPOJO.getTerminalId())
-                .amount(data.getOrDefault("amount","81234"))
+                .terminalId("1234567890")
+                .amount("81234")
                 .vaNumber("282638082216805580")
                 .reffBiller(data.getOrDefault("reffBiller","123450"))
                 .build();

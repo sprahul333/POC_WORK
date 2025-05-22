@@ -7,7 +7,7 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(
         features = "./src/test/resources/features", //Path of the feature files
         glue = "stepDefs", //Path/Package of the step definitions
-        tags = "@RegressionSuite and @DifferentLogins", //Mention the tag name to run the specific scenarios
+        tags = "@CreateLoanApplication", //Mention the tag name to run the specific scenarios
         monochrome = true, //If true, it will display the console output in a proper readable format
         plugin = {"pretty", "html: CucumberHTMLReport.html","json: CucumberJSONReport.json"},
         publish = true, //Helps in publishing the reports onto the cucumber cloud server
