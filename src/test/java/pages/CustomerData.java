@@ -4,6 +4,8 @@ import framework.PathUtils;
 import framework.ReusableLibrary;
 import org.openqa.selenium.By;
 
+import java.nio.file.Path;
+
 public class CustomerData extends ReusableLibrary {
 
     private By txt_NationalIdentificationNumber= By.xpath("//input[@id='txt_NoKtp']");
@@ -46,7 +48,8 @@ public class CustomerData extends ReusableLibrary {
 
     public void enterNationalIdentificationNumber(String nationalIdentificationNumber)
     {
-        seleniumUtils.enterData(txt_NationalIdentificationNumber,nationalIdentificationNumber,"National Identification Number");
+        PathUtils.applySleep(3000);
+        seleniumUtils.enterData(txt_NationalIdentificationNumber,nationalIdentificationNumber,10,"National Identification Number");
     }
 
     public void enterFullName(String fullName)
