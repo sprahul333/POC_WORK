@@ -69,7 +69,7 @@ public class BusinessComponents extends ReusableLibrary {
                 if(i==elementUtils.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).size()-1)
                 {
                     customerData.performSendKeysOnPhoneNumber();
-                    driver.switchTo().activeElement().sendKeys(Keys.PAGE_DOWN);
+                    driver.switchTo().activeElement().sendKeys(Keys.ARROW_DOWN);
                 }
 
                 seleniumUtils.clickOnElement(driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i),"Capture Image");
@@ -123,7 +123,7 @@ public class BusinessComponents extends ReusableLibrary {
         collateralData.selectCategory(collateralCategory);
         collateralData.selectCollateralType(collateralType);
         collateralData.selectCollateralCondition(collateralCondition);
-        collateralData.enterBKPBNumber("1234567890");
+        collateralData.enterBKPBNumber("BPKB00213023");
         collateralData.clickOnCheckBPKB();
         collateralData.clickOnProceed();
 
