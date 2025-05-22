@@ -127,7 +127,7 @@ public class BusinessComponents extends ReusableLibrary {
         collateralData.clickOnCheckBPKB();
         collateralData.clickOnProceed();
 
-        collateralData.enterLicensePlateNumber("B1234ABC");
+        collateralData.enterLicensePlateNumber("AE-9922-CC");
         collateralData.enterChassisNumber("12345678901234567");
         collateralData.enterFuelCapacity("50");
         collateralData.enterYearOfManufacture("2020");
