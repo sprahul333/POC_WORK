@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 public class ApplicationData extends ReusableLibrary {
 
     private By btn_Disbursement_Outlet=By.xpath("//label[text()='Outlet Pencairan']/../following-sibling::div/button");
-    private By txt_Disbursement_Outlet=By.xpath("//label[text()='Outlet Pencairan']/following-sibling::div/input");
+    private By txt_Disbursement_Outlet=By.xpath("//label[text()='Outlet Pencairan']/../following-sibling::div/ul/descendant::input");
     private By option_Disbursement_Outlet=By.xpath("//label[text()='Outlet Pencairan']/../following-sibling::div/ul/descendant::li");
 
     private By btn_Application_Purpose=By.xpath("//button[@id='cmb_TujuanPengajuan']");

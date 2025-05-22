@@ -58,6 +58,8 @@ public class OptionsManager {
         prefs.put("download.prompt_for_download", false); //Disable the pop up for downloads
         prefs.put("profile.default_content_setting_values.notifications", 2); //Disable notifications
         prefs.put("profile.default_content_setting_values.media_stream_camera",1); //Enable Camera Settings
+        prefs.put("credentials_enable_service", false); //Disable the pop up for saving the password, credentials
+        prefs.put("profile.password_manager_enabled", false); //Disable the pop up for saving the password, credentials
 
         options.setExperimentalOption("prefs", prefs);
 
