@@ -77,7 +77,7 @@ public class CollateralData extends ReusableLibrary {
 
     public void clickOnProceed()
     {
-        seleniumUtils.clickOnElement(btn_Proceed,"Proceed");
+        seleniumUtils.clickOnElement(btn_Proceed,5,"Proceed");
     }
 
     public void enterLicensePlateNumber(String licensePlateNumber)

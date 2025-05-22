@@ -69,7 +69,7 @@ public class BusinessComponents extends ReusableLibrary {
                 if(i==elementUtils.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).size()-1)
                 {
                     customerData.performSendKeysOnPhoneNumber();
-                    driver.switchTo().activeElement().sendKeys(Keys.ARROW_DOWN);
+                    driver.findElement(By.tagName("body")).sendKeys(Keys.ARROW_DOWN);
                 }
 
                 seleniumUtils.clickOnElement(driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i),"Capture Image");
