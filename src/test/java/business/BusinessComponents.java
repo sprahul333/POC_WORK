@@ -67,7 +67,11 @@ public class BusinessComponents extends ReusableLibrary {
                 seleniumUtils.performMouseHover(driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i),"Capture Image");
 
                 if(i==elementUtils.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).size()-1)
+                {
                     customerData.performSendKeysOnPhoneNumber();
+                    driver.switchTo().activeElement().sendKeys(Keys.PAGE_DOWN);
+                }
+
                 seleniumUtils.clickOnElement(driver.findElements(By.xpath("//div[contains(@class,'custom-file-upload') and not(@id)]")).get(i),"Capture Image");
             }
 

@@ -90,7 +90,7 @@ public class CustomerData extends ReusableLibrary {
 
     public void performSendKeysOnPhoneNumber()
     {
-        elementUtils.findElement(txt_PhoneNumber).sendKeys(Keys.DOWN);
+        seleniumUtils.clickOnElement(txt_PhoneNumber,"Phone Number");
     }
 
     public void enterPinCode(String pinCode)
