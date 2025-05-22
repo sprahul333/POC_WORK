@@ -107,6 +107,7 @@ public class BusinessComponents extends ReusableLibrary {
         customerData.selectSubDistrict(subDistrict);
         customerData.enterNeighborhoodAssociation("222");
         customerData.enterCommunityAssociation("333");
+        customerData.enterHomeAddress("Address New");
         customerData.clickOnCheckIndonesianPopulationAdministration();
         customerData.clickOnProceed();
         customerData.clickOnContinue();

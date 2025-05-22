@@ -39,6 +39,7 @@ public class CustomerData extends ReusableLibrary {
     private By txt_NeighborhoodAssociation=By.xpath("//input[@id='txt_Rt']");
     private By txt_CommunityAssociation=By.xpath("//input[@id='txt_rw']");
 
+    private By txt_HomeAddress=By.id("txt_AlamatRumah");
     private By btn_CheckIndonesianPopulationAdministration=By.xpath("//span[text()='Cek Dukcapil']");
 
     private By btn_Proceed=By.xpath("(//div[text()='Data isian nasabah sudah sesuai dengan Dukcapil, silakan lanjutkan data pengajuan.']/following::button/descendant::span[text()='Mengerti'])[2]");
@@ -114,6 +115,11 @@ public class CustomerData extends ReusableLibrary {
     public void enterCommunityAssociation(String communityAssociation)
     {
         seleniumUtils.enterData(txt_CommunityAssociation,communityAssociation,"Community Association");
+    }
+
+    public void enterHomeAddress(String homeAddress)
+    {
+        seleniumUtils.enterData(txt_HomeAddress,homeAddress,"Home Address");
     }
 
     public void clickOnCheckIndonesianPopulationAdministration()
