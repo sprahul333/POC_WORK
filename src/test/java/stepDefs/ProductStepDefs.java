@@ -9,7 +9,8 @@ import io.cucumber.java.en.When;
 public class ProductStepDefs {
 
     BusinessComponents businessComponents = new BusinessComponents();
-    String referenceNumber="";;
+    String referenceNumber="";
+
     @Given("the Account Officer is logged in")
     public void loginAsAccountOfficer() {
         businessComponents.loginToApplication();
@@ -20,19 +21,21 @@ public class ProductStepDefs {
         businessComponents.navigateToNonPawnApplication();
     }
 
-    @And("the Account Officer fills in the application data with loan purpose {string}, rubric {string}, loan amount {string}, and product {string}")
-    public void fillApplicationData(String loanPurpose, String rubric, String loanAmount, String product) {
-        businessComponents.fillApplicationData("Outlet Name", "Loan Purpose", loanPurpose, rubric, loanAmount, product);
+
+    @And("the Account Officer fills in the application data with disbursement outlet {string}, application purpose {string},  loan purpose {string}, rubric {string}, loan amount {string}, and product {string}")
+    public void theAccountOfficerFillsInTheApplicationDataWithDisbursementOutletApplicationPurposeLoanPurposeRubricLoanAmountAndProduct(String disbursementOutlet, String applicationPurpose,String loanPurpose, String rubric, String loanAmount, String product) {
+        businessComponents.fillApplicationData(disbursementOutlet, applicationPurpose, loanPurpose, rubric, loanAmount, product);
     }
 
-    @And("the Account Officer fills in the customer data with {string} from Dukcapil")
-    public void fillCustomerData(String customerId) {
-        businessComponents.fillCustomerData("1234567890123456", "Customer Name","","","","");
+    @And("the Account Officer fills in the customer data with customer id {string}, customer name {string}, gender {string}, PlaceOfBirth {string}, PinCode {string}, SubDistrict {string} and verify from Dukcapil")
+    public void theAccountOfficerFillsInTheCustomerDataWithCustomerIdCustomerNameGenderPlaceOfBirthPinCodeSubDistrictAndVerifyFromDukcapil(String customerID, String customerName, String gender, String placeOfBirth, String pinCode, String subDistrict) {
+        businessComponents.fillCustomerData(customerID, customerName, gender, placeOfBirth, pinCode, subDistrict);
     }
 
-    @And("the Account Officer adds 1 new vehicle collateral {string}")
-    public void addVehicleCollateral(String vehicleType) {
-        businessComponents.enterCollateralData(vehicleType,"","");
+
+    @And("the Account Officer adds One Collateral with Collateral Category {string}, Collateral Type {string}, Collateral Condition {string}")
+    public void theAccountOfficerAddsNewVehicleWithCollateralCategoryCollateralTypeCollateralCondition(String collateralCategory, String collateralType, String collateralCondition) {
+        businessComponents.enterCollateralData(collateralCategory, collateralType, collateralCondition);
     }
 
     @When("the Account Officer clicks submit for product {string}")
