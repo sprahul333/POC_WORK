@@ -1,6 +1,7 @@
 #language: id
 Fitur: Pengujian API Alur Ujung ke Ujung
 
+  @RegressionSuite @Indonesia @APITesting
   Skenario konsep: Mengotomatisasi Alur Ujung ke Ujung
     Dengan Pengguna melakukan login ke aplikasi
     Ketika Saya melakukan permintaan data dengan rincian berikut
@@ -27,8 +28,8 @@ Fitur: Pengujian API Alur Ujung ke Ujung
     Dan Saya juga memeriksa pembayaran dengan rincian berikut
       | terminalid | "<Terminal_ID>" |
     Maka Saya melakukan pembayaran dengan data transaksi berikut
-      | amount     | "<Amount>" |
-      | biller     | "<Biller>" |
+      | amount | "<Amount>" |
+      | biller | "<Biller>" |
 
     Contoh:
       | Terminal_ID | Amount | Biller | id_transaksi      | payment | flag |

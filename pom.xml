@@ -27,6 +27,41 @@
         <plexus-utils>LATEST</plexus-utils>
     </properties>
 
+    <build>
+        <plugins>
+
+            <!-- Compiler Plugin is used to compile the source code and scan for any errors or syntax issues -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+
+                <configuration>
+                    <release>15</release>
+                </configuration>
+            </plugin>
+
+            <!-- Sure Fire Plugin is used to run the test cases or the source code as per the given configurations-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.3</version>
+
+                <configuration> <!-- Here we mention which test cases do we need to run -->
+                    <forkCount>0</forkCount>
+                    <!--<suiteXmlFiles>
+                        <suiteXmlFile>${suiteXml}</suiteXmlFile>
+                    </suiteXmlFiles>-->
+                    <includes>
+                        <include>**/TestRunner.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
     <dependencies>
 
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
@@ -188,15 +223,5 @@
         </dependency>
 
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <release>15</release>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
 </project>
