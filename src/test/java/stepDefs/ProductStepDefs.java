@@ -47,6 +47,7 @@ public class ProductStepDefs {
     public void verifyApplicationSuccess() {
         //Hit the api call
         System.out.println("Reference Number: "+referenceNumber);
+
     }
 
 }

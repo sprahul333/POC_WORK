@@ -12,6 +12,8 @@ public class ReviewData extends ReusableLibrary {
     private By btn_Save= By.xpath("//span[text()='Simpan']/ancestor::button");
     private By fld_ReferenceNumber=By.xpath("//div[contains(.,'Data sedang dalam pengajuan') and contains(@class,'confirmation-modal-body')]");
 
+    private By btn_Cancel=By.xpath("//span[text()='Batalkan']/ancestor::button");
+
     /***************************************************************************************************************************************************/
 
     public void clickOnSubmitApplication()
@@ -27,6 +29,11 @@ public class ReviewData extends ReusableLibrary {
     public void clickOnSave()
     {
         seleniumUtils.clickOnElement(btn_Save,"Save");
+    }
+
+    public void clickOnCancel()
+    {
+        seleniumUtils.clickOnElement(btn_Cancel,"Cancel");
     }
 
     public String getReferenceNumber()

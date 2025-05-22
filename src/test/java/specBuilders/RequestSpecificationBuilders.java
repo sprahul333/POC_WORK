@@ -101,4 +101,18 @@ public class RequestSpecificationBuilders {
 
         return requestSpecBuilder.build();
     }
+
+    public RequestSpecification getUserRegisteredOrNot(String referenceNumber)
+    {
+
+        RequestSpecBuilder requestSpecBuilder=new RequestSpecBuilder();
+
+        requestSpecBuilder.setContentType(ContentType.JSON)
+                .addFilter(new AllureRestAssured())
+                .addHeader("Authorization","Basic YWRtaW46YWRtaW4=")
+                .setBaseUri("https://loan-pengajuan-los-dev.apps.ocp-dev.pegadaian.co.id")
+                .addQueryParam("nomorAplikasi",referenceNumber).log(LogDetail.BODY);
+
+        return requestSpecBuilder.build();
+    }
 }
