@@ -2,6 +2,8 @@ package business;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import framework.FileUtility;
+import framework.PathUtils;
 import framework.ReusableLibrary;
 import framework.constants.LogStatus;
 import framework.constants.StatusCodes;
@@ -13,6 +15,7 @@ import specBuilders.RequestSpecificationBuilders;
 import specBuilders.ResponseSpecificationBuilders;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
@@ -166,6 +169,29 @@ public class BusinessAPI extends ReusableLibrary {
 
         Response response=given()
                 .spec(specBuilders.getRequestSpecification_MakePayment(makePaymentPOJO))
+                .when()
+                .post("/billing/sb/payment")
+                .then()
+                .log().body()
+                .spec(responseSpecificationBuilders.getResponseSpecification_MakePayment(StatusCodes.SUCCESS.getStatusCode()))
+                .extract().response();
+
+        System.out.println(response.getBody().asString());
+
+        reports.logReportsToTheFile(LogStatus.INFO,"Response is: "+response.getBody().asString());
+    }
+
+    @SneakyThrows
+    public void makePaymentUsingExternalPayload(DataTable dataTable)
+    {
+        List<String> jsonPayload = dataTable.asList(String.class);
+
+        String jsonFileName=jsonPayload.get(0);
+
+        reports.logReportsToTheFile(LogStatus.INFO,"Request sent is: "+ FileUtility.readDataFromTheFile(PathUtils.getAPIPayload()+jsonFileName));
+
+        Response response=given()
+                .spec(specBuilders.getRequestSpecification_MakePayment_ExternalFile(PathUtils.getAPIPayload()+jsonFileName))
                 .when()
                 .post("/billing/sb/payment")
                 .then()

@@ -112,4 +112,8 @@ public class PathUtils {
         return resultsPath+"/StepsLog_"+testCaseName+".txt";
     }
 
+    public String getAPIPayload()
+    {
+        return System.getProperty("user.dir")+"//src//test//resources//jsonPayloads//";
+    }
 }

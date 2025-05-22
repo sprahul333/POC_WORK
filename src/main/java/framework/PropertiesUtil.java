@@ -39,6 +39,10 @@ public class PropertiesUtil {
         return getProperty("Browser");
     }
 
+    public String getResolutionSize() {
+        return getProperty("ScreenResolution");
+    }
+
     public String getUserName() {
         return getProperty("UserName");
     }

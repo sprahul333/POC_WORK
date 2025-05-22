@@ -36,4 +36,9 @@ public class Api_Step_Defs
     public void iMakeThePaymentUsingTheGivenTransactionDetails(DataTable dataTable) {
         businessAPI.makePayment(dataTable);
     }
+
+    @Then("I Make the Payment using the given transaction details using external payload")
+    public void iMakeThePaymentUsingTheGivenTransactionDetailsUsingExternalPayload(DataTable dataTable) {
+        businessAPI.makePaymentUsingExternalPayload(dataTable);
+    }
 }

@@ -71,6 +71,19 @@ public class RequestSpecificationBuilders {
         return requestSpecBuilder.build();
     }
 
+    public RequestSpecification getRequestSpecification_MakePayment_ExternalFile(String filePath)
+    {
+        RequestSpecBuilder requestSpecBuilder=new RequestSpecBuilder();
+
+        requestSpecBuilder.setContentType(ContentType.JSON)
+                .addFilter(new AllureRestAssured())
+                .addHeader("Authorization","Basic YWRtaW46YWRtaW4=")
+                .setBaseUri("https://billing-service-v2-switching-dev.apps.ocp-dev.pegadaian.co.id")
+                .setBody(new File(filePath)).log(LogDetail.BODY);
+
+        return requestSpecBuilder.build();
+    }
+
     public RequestSpecification getRequestSpecification_makeAnInquiry(String token, MakeAnInquiryRequestPOJO inquiryRequestPOJO)
     {
         RequestSpecBuilder requestSpecBuilder=new RequestSpecBuilder();

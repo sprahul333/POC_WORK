@@ -41,7 +41,8 @@ public class OptionsManager {
         return firefoxOptions;
     }
 
-    public ChromeOptions getChromeOptions() {
+    public ChromeOptions getChromeOptions()
+    {
         options.addArguments("--start-maximized");
         options.addArguments("--disable-notifications");
 
@@ -60,6 +61,9 @@ public class OptionsManager {
         prefs.put("profile.default_content_setting_values.media_stream_camera",1); //Enable Camera Settings
         prefs.put("credentials_enable_service", false); //Disable the pop up for saving the password, credentials
         prefs.put("profile.password_manager_enabled", false); //Disable the pop up for saving the password, credentials
+
+        if(!prop.getResolutionSize().isBlank())
+        options.addArguments("window-size="+prop.getResolutionSize());
 
         options.setExperimentalOption("prefs", prefs);
 
