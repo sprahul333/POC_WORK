@@ -19,6 +19,7 @@ public class BusinessComponents extends ReusableLibrary {
 
     public void loginToApplication()
     {
+        seleniumUtils.launchApplication(propertiesUtil.getURL());
         loginPage.enterUserName(propertiesUtil.getUserName());
         loginPage.enterPassword(propertiesUtil.getPassword());
         loginPage.clickOnLoginButton();
