@@ -11,7 +11,7 @@ public class CustomerData extends ReusableLibrary {
     private By txt_NationalIdentificationNumber= By.xpath("//input[@id='txt_NoKtp']");
     private By txt_FullName=By.xpath("//input[@id='txt_NamaLengkap']");
 
-    private By btn_Gender=By.xpath("//button[@id='cmb_JenisKelamin']");
+    private By btn_Gender=By.xpath("//button[@id='cbx_JenisKelamin']");
     private By option_Gender(String gender)
     {
         return By.xpath("//button[@id='cbx_JenisKelamin']/following-sibling::ul/descendant::li/descendant::div[normalize-space(text())='"+gender+"']");
