@@ -31,6 +31,6 @@ public class ReviewData extends ReusableLibrary {
 
     public String getReferenceNumber()
     {
-        return seleniumUtils.getElementText(fld_ReferenceNumber,"Reference Number").split("pengajuan")[1].split("Tanggal")[0].trim().replaceAll("[^0-9]","");
+        return seleniumUtils.getElementText(fld_ReferenceNumber,5,"Reference Number").split("pengajuan")[1].split("Tanggal")[0].trim().replaceAll("[^0-9]","");
     }
 }
