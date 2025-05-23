@@ -62,6 +62,7 @@ public class OptionsManager {
         prefs.put("credentials_enable_service", false); //Disable the pop up for saving the password, credentials
         prefs.put("profile.password_manager_enabled", false); //Disable the pop up for saving the password, credentials
 
+        options.addArguments("--use-fake-ui-for-media-stream"); // Automatically allow location access
         if(!prop.getResolutionSize().isBlank())
         options.addArguments("window-size="+prop.getResolutionSize());
 
