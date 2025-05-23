@@ -1,4 +1,4 @@
-Feature: API Testing End to End Flow
+Feature: PAGATEIAN API TESTING
 
   @RegressionSuite @English @APITesting
   Scenario Outline: Automating End to End Flow

@@ -7,9 +7,9 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(
         features = "./src/test/resources/features", //Path of the feature files
         glue = "stepDefs", //Path/Package of the step definitions
-        tags = "@CreateLoanApplication", //Mention the tag name to run the specific scenarios
+        tags = "@CreateLoanApplication and @English", //Mention the tag name to run the specific scenarios
         monochrome = true, //If true, it will display the console output in a proper readable format
-        plugin = {"pretty", "html: CucumberHTMLReport.html","json: CucumberJSONReport.json"},
+        plugin = {"pretty", "html: CucumberHTMLReport.html","json: CucumberJSONReport.json","junit: CucumberJSONReport.xml"},
         publish = true, //Helps in publishing the reports onto the cucumber cloud server
         dryRun = false //Checking whether each step is having a method or step definition or not
 )
@@ -21,8 +21,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
 
     //Below data provider is used to collect all the required scenarios based on the tags mentioned in the CucumberOptions
     //Once the scenarios are collected, then it will pass the scenario details to the Hook class via Scenario object
-    @DataProvider(parallel = true) //--> Helps us in running the test cases in parallel mode
-//    @DataProvider
+    @DataProvider(parallel = false) //--> Helps us in running the test cases in parallel mode
     public Object[][] scenarios()
     {
         return super.scenarios();
