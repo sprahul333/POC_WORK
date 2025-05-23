@@ -295,6 +295,8 @@ public class SeleniumUtils {
         if(new PropertiesUtil().getResolutionSize().isBlank())
         driver.manage().window().maximize();
 
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofMinutes(10));
+
 //        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Launched the application successfully for: "+url);
         return driver.getWindowHandle();
     }
@@ -830,6 +832,10 @@ public class SeleniumUtils {
         actions.scrollToElement(element).perform();
     }
 
+    public void performKeyBoardActionsOnBody(Keys keys)
+    {
+        elementUtils.findElement(By.tagName("body")).sendKeys(keys);
+    }
 
 }
 
