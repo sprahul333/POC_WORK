@@ -291,6 +291,8 @@ public class SeleniumUtils {
             throw new GenericExceptions("Given URL does not start with https:");
 
         driver.get(url);
+
+        if(new PropertiesUtil().getResolutionSize().isBlank())
         driver.manage().window().maximize();
 
 //        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Launched the application successfully for: "+url);
