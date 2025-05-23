@@ -66,12 +66,25 @@ public class OptionsManager {
         if(!prop.getResolutionSize().isBlank())
         options.addArguments("window-size="+prop.getResolutionSize());
 
-        options.setExperimentalOption("prefs", prefs);
-
         if(prop.getIncognitoMode().equalsIgnoreCase("Yes") || prop.getIncognitoMode().equalsIgnoreCase("True"))
         {
             options.addArguments("--incognito");
+
+            Map<String, Object> siteSettings = new HashMap<>();
+            siteSettings.put("https://exa-host-core-exa-dev.apps.ocp-dev.pegadaian.co.id:443", 1);  // 1 = Allow
+
+            // 2. Map for content settings types (e.g., geolocation)
+            Map<String, Object> profileSettings = new HashMap<>();
+            profileSettings.put("geolocation", siteSettings);
+
+            // 3. Combine into default profile settings
+            prefs.put("profile.default_content_setting_values.geolocation", 1); // Global default allow (optional)
+            prefs.put("profile.managed_default_content_settings.geolocation", 1);
+            prefs.put("profile.content_settings.exceptions.geolocation", profileSettings);
+
         }
+
+        options.setExperimentalOption("prefs", prefs);
 
         if(prop.getHeadlessTest().equalsIgnoreCase("Yes") || prop.getHeadlessTest().equalsIgnoreCase("True"))
         {
