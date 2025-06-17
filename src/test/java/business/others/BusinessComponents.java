@@ -1,10 +1,9 @@
-package business;
+package business.others;
 
 import framework.PathUtils;
 import framework.ReusableLibrary;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import pages.*;
+import pages.others.*;
 
 public class BusinessComponents extends ReusableLibrary {
 

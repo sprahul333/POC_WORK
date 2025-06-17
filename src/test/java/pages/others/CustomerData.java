@@ -1,11 +1,8 @@
-package pages;
+package pages.others;
 
 import framework.PathUtils;
 import framework.ReusableLibrary;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-
-import java.nio.file.Path;
 
 public class CustomerData extends ReusableLibrary {
 

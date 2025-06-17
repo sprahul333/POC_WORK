@@ -1,4 +1,4 @@
-package pages;
+package pages.others;
 
 import framework.ReusableLibrary;
 import org.openqa.selenium.By;

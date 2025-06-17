@@ -51,6 +51,14 @@ public class PropertiesUtil {
         return getProperty("Password");
     }
 
+    public String getSupervisorUserName() {
+        return getProperty("SuperVisorUserName");
+    }
+
+    public String getSuperVisorPassword() {
+        return getProperty("SuperVisorPassword");
+    }
+
     public String getHeadlessTest() {
         return getProperty("Headless");
     }

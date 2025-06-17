@@ -1,4 +1,4 @@
-package pages;
+package pages.others;
 
 import framework.PathUtils;
 import framework.ReusableLibrary;

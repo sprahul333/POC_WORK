@@ -1,6 +1,6 @@
 package stepDefs;
 
-import business.BusinessAPI;
+import business.others.BusinessAPI;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;

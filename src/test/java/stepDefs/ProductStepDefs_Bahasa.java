@@ -1,9 +1,6 @@
 package stepDefs;
 
-import business.BusinessComponents;
-import io.cucumber.java.en.And;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import business.others.BusinessComponents;
 import io.cucumber.java.id.Dan;
 import io.cucumber.java.id.Dengan;
 import io.cucumber.java.id.Ketika;

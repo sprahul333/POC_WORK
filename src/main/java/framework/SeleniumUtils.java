@@ -191,6 +191,11 @@ public class SeleniumUtils {
         return Optional.ofNullable(element.getDomAttribute("value")).orElseGet(()->element.getDomProperty("value"));
     }
 
+    public void sendKeys(By by, Keys keys)
+    {
+        WebElement element = elementUtils.findElement(by);
+        element.sendKeys(keys);
+    }
 
     public void enterData(By by,String data,int time,String labelName)
     {
