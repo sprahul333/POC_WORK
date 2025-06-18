@@ -26,6 +26,8 @@ public class PawnApplicationPage extends ReusableLibrary {
     By ddl_CollateralType=By.xpath("//div[@id='cmb_tipeJaminan']/select");
     By txt_Quantity=By.xpath("//input[@id='txt_Jumlah']");
     By txt_Color=By.xpath("//input[@id='txt_Warna']");
+
+     By txt_merek=By.xpath("//input[@id='txt_Merek']");
     By txt_MarketPrice=By.xpath("//input[@id='txt_HargaPasar']");
 
     By txt_Description=By.xpath("//textarea[@id='txt_Keterangan']");
