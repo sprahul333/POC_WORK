@@ -76,6 +76,7 @@ public class PassionBusiness extends ReusableLibrary {
                 .getReferenceNumber();
 
         appraiserPage.clickOnOk();
+        loginPage.clickOnLogOut();
 
     }
 
