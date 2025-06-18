@@ -49,6 +49,8 @@ public class PassionBusiness extends ReusableLibrary {
                 .clickOnOK().getRegistrationNumber();
 
         pawnApplicationPage.clickOnSaveData();
+
+        loginPage.clickOnLogOut();
     }
 
     public void approveTheRequest()
