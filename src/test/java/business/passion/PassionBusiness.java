@@ -42,6 +42,7 @@ public class PassionBusiness extends ReusableLibrary {
                 .selectCollateralType("ARLOJI")
                 .enterQuantity("1")
                 .enterColour("HITAM")
+                .enterBrand("ROLLEK")
                 .enterMarketPrice("25000000")
                 .enterDescription("NEW ARLOJI")
                 .clickOnSaveDetails()

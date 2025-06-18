@@ -27,7 +27,8 @@ public class PawnApplicationPage extends ReusableLibrary {
     By txt_Quantity=By.xpath("//input[@id='txt_Jumlah']");
     By txt_Color=By.xpath("//input[@id='txt_Warna']");
 
-     By txt_merek=By.xpath("//input[@id='txt_Merek']");
+    By txt_Brand=By.xpath("//input[@id='txt_Merek']");
+
     By txt_MarketPrice=By.xpath("//input[@id='txt_HargaPasar']");
 
     By txt_Description=By.xpath("//textarea[@id='txt_Keterangan']");
@@ -119,6 +120,12 @@ public class PawnApplicationPage extends ReusableLibrary {
     public PawnApplicationPage enterColour(String colour)
     {
         seleniumUtils.enterData(txt_Color,colour,5,"Colour");
+        return this;
+    }
+
+    public PawnApplicationPage enterBrand(String brand)
+    {
+        seleniumUtils.enterData(txt_Brand,brand,5,"Brand");
         return this;
     }
 
