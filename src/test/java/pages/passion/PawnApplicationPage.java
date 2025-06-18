@@ -1,5 +1,6 @@
 package pages.passion;
 
+import framework.PathUtils;
 import framework.ReusableLibrary;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -60,6 +61,9 @@ public class PawnApplicationPage extends ReusableLibrary {
     public PawnApplicationPage enterCIFNumber(String cifNumber)
     {
         seleniumUtils.enterData(txt_CIFNumber,cifNumber,5,"CIF Number");
+        seleniumUtils.sendKeys(txt_CIFNumber,Keys.ENTER);
+        PathUtils.applySleep(5000);
+        driver.findElement(By.xpath("//div[text()='Nasabah adalah Penerima Subsidi SM, lakukan pengecekan pada Menu Inquiry Pinjaman Transaksi Subsidi']/../../../descendant::span[text()='Ok']/..")).click();
         return this;
     }
 
