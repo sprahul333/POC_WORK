@@ -1,6 +1,7 @@
 package business.passion;
 
 import framework.ReusableLibrary;
+import framework.constants.LogStatus;
 import pages.passion.AppraiserPage;
 import pages.passion.LoginPage;
 import pages.passion.PawnApplicationPage;
@@ -50,6 +51,7 @@ public class PassionBusiness extends ReusableLibrary {
                 .clickOnContinue()
                 .clickOnOK().getRegistrationNumber();
 
+        reports.logReportsToTheFile(LogStatus.INFO,"Registration Number generated is: "+registrationNumber);
         pawnApplicationPage.clickOnSaveData();
 
         loginPage.clickOnLogOut();

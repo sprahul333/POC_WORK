@@ -29,7 +29,7 @@ public class AppraiserPage extends ReusableLibrary {
 
     public AppraiserPage selectRecord(String referenceNumber)
     {
-        seleniumUtils.clickOnElement(btn_SelectRecord(referenceNumber),5,"Select Record");
+        seleniumUtils.clickOnElement(btn_SelectRecord(referenceNumber),5,"Select Record : "+referenceNumber);
         return this;
     }
 
