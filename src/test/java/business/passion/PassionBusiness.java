@@ -29,6 +29,14 @@ public class PassionBusiness extends ReusableLibrary {
                 .clickLogin();
     }
 
+    public void loginToApplicationUsingBranchManagerCredentials()
+    {
+        seleniumUtils.launchApplication(propertiesUtil.getURL());
+        loginPage.enterUserName(propertiesUtil.getBranchUserName())
+                .enterPassword(propertiesUtil.getBranchPassword())
+                .clickLogin();
+    }
+
     public void fillPawnApplicationPage()
     {
         registrationNumber=pawnApplicationPage.enterMenuID("41010")
@@ -60,12 +68,27 @@ public class PassionBusiness extends ReusableLibrary {
 
     public void approveTheRequest()
     {
-        appraiserPage.clickOnMyTasks()
+        registrationNumber=appraiserPage.clickOnMyTasks()
                 .selectRecord(registrationNumber)
                 .clickOnSimpan()
                 .clickOnContinue()
                 .clickOnKreditOK()
-                .clickOnOk();
+                .getReferenceNumber();
+
+        appraiserPage.clickOnOk();
+
+    }
+
+    public void approveTheRequest_BranchApproval()
+    {
+        registrationNumber=appraiserPage.clickOnMyTasks()
+                .selectRecord(registrationNumber)
+                .clickOnSimpan()
+                .clickOnContinue()
+                .clickOnKreditOK()
+                .getReferenceNumber();
+
+        appraiserPage.clickOnOk();
 
     }
 }

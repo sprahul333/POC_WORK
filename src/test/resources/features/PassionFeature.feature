@@ -10,6 +10,8 @@ Feature: Submit Product Application (Non-Pawn)
     And User Fills the Pawn Application
     When Login to the Appraiser Application
     Then Approve the Pawn Application
+    When Login to the Branch Manager Application
+    Then Approve the Pawn Application
 
 #    And the user performs approval or confirmation of the pawn application
 #    And approval is given by the Pawn Manager (P84038B / 123)

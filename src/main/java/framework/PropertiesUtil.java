@@ -59,6 +59,14 @@ public class PropertiesUtil {
         return getProperty("SuperVisorPassword");
     }
 
+    public String getBranchUserName() {
+        return getProperty("BranchManagerUserName");
+    }
+
+    public String getBranchPassword() {
+        return getProperty("BranchManagerPassword");
+    }
+
     public String getHeadlessTest() {
         return getProperty("Headless");
     }

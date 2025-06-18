@@ -41,6 +41,7 @@ public class PawnApplicationPage extends ReusableLibrary {
     By btn_OK_RequiresAppraiserVerification=By.xpath("//div[text()='Data Pinjaman Membutuhkan Verifikasi Penaksir, Silahkan Lihat Pada Tugasku Penaksir']/../../../descendant::span[text()='Ok']");
 
     By fld_RegistrationNumber=By.xpath("//div[contains(text(),'Data berhasil disimpan')]");
+
     By btn_Ok_SaveData=By.xpath("//div[contains(text(),'Data berhasil disimpan')]/../../../descendant::span[text()='Ok']");
 
     /****************************************************************************************************************************************************************/

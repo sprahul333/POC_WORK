@@ -30,4 +30,9 @@ public class PassionStepDefs extends ReusableLibrary
     public void approveThePawnApplication() {
         passionBusiness.approveTheRequest();
     }
+
+    @When("Login to the Branch Manager Application")
+    public void loginToTheBranchManagerApplication() {
+        passionBusiness.loginToApplicationUsingBranchManagerCredentials();
+    }
 }

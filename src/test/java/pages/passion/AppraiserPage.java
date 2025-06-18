@@ -27,6 +27,8 @@ public class AppraiserPage extends ReusableLibrary {
 
     By btn_OK=By.xpath("//span[text()='Ok']");
 
+    By fld_RegistrationNumber=By.xpath("//div[contains(text(),'Data berhasil disimpan')]");
+
     /*************************************************************************************************************************************/
 
     public AppraiserPage clickOnMyTasks()
@@ -60,6 +62,11 @@ public class AppraiserPage extends ReusableLibrary {
     {
         seleniumUtils.clickOnElement(btn_YesContinue,5,"Continue");
         return this;
+    }
+
+    public String getReferenceNumber()
+    {
+        return seleniumUtils.getElementText(fld_RegistrationNumber,5,"Registration Number").split(":")[1].trim();
     }
 
     public AppraiserPage clickOnOk()
