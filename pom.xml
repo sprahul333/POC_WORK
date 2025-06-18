@@ -25,6 +25,7 @@
         <commons-configuration-version>LATEST</commons-configuration-version>
         <faker-version>LATEST</faker-version>
         <plexus-utils>LATEST</plexus-utils>
+        <cucumber-report-version>LATEST</cucumber-report-version>
     </properties>
 
     <!--<build>
@@ -63,6 +64,13 @@
     </build>
 -->
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>${cucumber-version}</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
         <dependency>
