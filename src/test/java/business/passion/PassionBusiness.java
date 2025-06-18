@@ -23,6 +23,7 @@ public class PassionBusiness extends ReusableLibrary {
 
     public void loginToApplicationUsingSupervisorCredentials()
     {
+        seleniumUtils.launchApplication(propertiesUtil.getURL());
         loginPage.enterUserName(propertiesUtil.getSupervisorUserName())
                 .enterPassword(propertiesUtil.getSuperVisorPassword())
                 .clickLogin();
@@ -61,7 +62,10 @@ public class PassionBusiness extends ReusableLibrary {
     {
         appraiserPage.clickOnMyTasks()
                 .selectRecord(registrationNumber)
-                .clickOnApprove()
-                .clickOnContinue();
+                .clickOnSimpan()
+                .clickOnContinue()
+                .clickOnKreditOK()
+                .clickOnOk();
+
     }
 }
