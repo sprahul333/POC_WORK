@@ -1,9 +1,6 @@
 Feature: Submit Product Application (Non-Pawn)
 
-  Background:
-    Given Account Officer is logged in
-
-  @RegressionSuite @CreateLoanApplication @English
+  @RegressionSuite @CreateAndApprovePawnApplication @English
   Scenario: Successful submission of PAWN Application
     Given the Cashier successfully logs into the Passion application using credentials
 #    When the user accesses the menu with code "41010"

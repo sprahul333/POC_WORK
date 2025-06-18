@@ -289,11 +289,11 @@ public class SeleniumUtils {
         if(url.isBlank() || url.isEmpty())
             throw new GenericExceptions("Given URL is empty or blank");
 
-        else if(!url.contains("https"))
-            throw new GenericExceptions("Given URL does not contain https:");
-
-        else if(!url.startsWith("https"))
-            throw new GenericExceptions("Given URL does not start with https:");
+//        else if(!url.contains("https"))
+//            throw new GenericExceptions("Given URL does not contain https:");
+//
+//        else if(!url.startsWith("https"))
+//            throw new GenericExceptions("Given URL does not start with https:");
 
         driver.get(url);
 
@@ -839,7 +839,13 @@ public class SeleniumUtils {
 
     public void performKeyBoardActionsOnBody(Keys keys)
     {
-        elementUtils.findElement(By.tagName("body")).sendKeys(keys);
+        elementUtils.findElement(By.tagName("body")).click();
+
+        for(int i=0;i<3;i++) {
+            driver.switchTo().activeElement().sendKeys(keys);
+        }
+
+
     }
 
 }

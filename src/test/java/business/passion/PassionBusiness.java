@@ -14,6 +14,7 @@ public class PassionBusiness extends ReusableLibrary {
 
     public void loginToApplication()
     {
+        seleniumUtils.launchApplication(propertiesUtil.getURL());
         loginPage.enterUserName(propertiesUtil.getUserName())
                 .enterPassword(propertiesUtil.getPassword())
                 .clickLogin();
