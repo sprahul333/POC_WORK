@@ -120,9 +120,10 @@ public class PawnApplicationPage extends ReusableLibrary {
         return this;
     }
 
-    public PawnApplicationPage enterMarketPlace(String marketPlace)
+    public PawnApplicationPage enterMarketPrice(String marketPlace)
     {
         seleniumUtils.enterData(txt_MarketPrice,marketPlace,5,"Market Place");
+        seleniumUtils.sendKeys(txt_MarketPrice,Keys.ENTER);
         return this;
     }
 
