@@ -53,5 +53,6 @@ public class PassionStepDefs extends ReusableLibrary
 
     @Then("Approve the Pawn Application for disbursement using SBG Number {string}")
     public void approveThePawnApplicationForDisbursementUsingSBGNumber(String sbgNumber) {
+        passionBusiness.approveTheRequestAtThirdLevel();
     }
 }
