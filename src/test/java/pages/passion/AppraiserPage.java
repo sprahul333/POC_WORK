@@ -32,6 +32,8 @@ public class AppraiserPage extends ReusableLibrary {
 
     By fld_RegistrationNumber=By.xpath("//div[contains(text(),'Data berhasil disimpan')]");
 
+    By btn_=By.xpath("//span[text()='Cetak']/..");
+    By btn_Close=By.xpath("//div[contains(@class,'closebox')]");
     /*************************************************************************************************************************************/
 
     public AppraiserPage clickOnMyTasks()
