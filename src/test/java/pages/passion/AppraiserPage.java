@@ -28,7 +28,7 @@ public class AppraiserPage extends ReusableLibrary {
 
     By btn_DataSavedSuccessfully=By.xpath("//div[text()='Data Berhasil Disimpan, Lanjutkan Ke Proses Konfirmasi Nasabah !']/../../../descendant::span[text()='Ok']/..");
 
-    By btn_EnterCashierDetails=By.xpath("//div[contains(text(),'silahkan hubungi Pimpinan Unit Kerja Anda!')]/../../../descendant::span[text()='Ok']/..");
+    By btn_EnterCashierDetails=By.xpath("(//div[contains(text(),'silahkan hubungi Pimpinan Unit Kerja Anda!')]/../../../descendant::span[text()='Ok']/..)[3]");
 
     By btn_OK=By.xpath("//span[text()='Ok']");
 
@@ -37,6 +37,9 @@ public class AppraiserPage extends ReusableLibrary {
     By btn_Print=By.xpath("//span[text()='Cetak']/..");
 
     By btn_Close=By.xpath("//div[contains(@class,'closebox')]");
+
+    By txt_SBGNumber=By.xpath("//input[@id='txt_nosbg']");
+
     /*************************************************************************************************************************************/
 
     public AppraiserPage clickOnMyTasks()
@@ -111,6 +114,12 @@ public class AppraiserPage extends ReusableLibrary {
     public AppraiserPage clickOnPrint()
     {
         seleniumUtils.clickOnElement(btn_Print,5,"Print");
+        return this;
+    }
+
+    public AppraiserPage enterSBGNumber(String sbgNumber)
+    {
+        seleniumUtils.enterData(txt_SBGNumber,sbgNumber,5,"SBG Number");
         return this;
     }
 }

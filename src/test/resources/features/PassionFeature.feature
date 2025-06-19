@@ -26,7 +26,6 @@ Feature: Submit Product Application (Non-Pawn)
 #    And approval is also given by the Branch Manager (Pinca)
 #    Then the "Cashier" successfully processes the pawn application and disbursement with "Non-Cash" payment
 
-
   @RegressionSuite @CreateAndApprovePawnApplication @English @Second
   Scenario Outline: Successful submission of PAWN Application for the Second Run
     Given the Cashier successfully logs into the Passion application using credentials

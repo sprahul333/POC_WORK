@@ -110,11 +110,12 @@ public class PassionBusiness extends ReusableLibrary {
 
     }
 
-    public void approveTheRequestAtCashierLevelForDisbursement()
+    public void approveTheRequestAtCashierLevelForDisbursement(String sbgNumber)
     {
         appraiserPage.clickOnMyTasks()
                 .selectRecord(testUtil.getData("Application_Number"))
                 .clickOnEnterCashierDetails_OK()
+                .enterSBGNumber(sbgNumber)
                 .clickOnSimpan()
                 .clickOnContinue()
                 .getReferenceNumber();
