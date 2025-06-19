@@ -46,6 +46,7 @@ public class Hook {
 
     @Before
     public void performBefore(Scenario sc) {
+
         //Prints the name of the scenario
         System.out.println(sc.getName());
 
@@ -78,7 +79,7 @@ public class Hook {
                 );
 
         if (testUtil.getPropertiesUtil().getConsolidatedOrIndividualReport().equalsIgnoreCase("Individual"))
-            testUtil.setExtentReports(new ExtentReportUtil().getExtentReports(getTestCaseName(sc)));
+            testUtil.setExtentReports(new ExtentReportUtil().getExtentReports(getScenarioName(sc)));
 
         testUtil.setScenarioName(getScenarioName(sc));
         testCase = testUtil.getExtentReports().createTest(testUtil.getScenarioName());
@@ -92,6 +93,7 @@ public class Hook {
 //        System.out.println("Performing actions after each scenario");
 
         testUtil.getExtentReports().flush();
+        testUtil.getDriver().quit();
         ReusableLibrary.testUtilThread.set(null);
     }
 
