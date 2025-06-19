@@ -26,6 +26,8 @@ public class AppraiserPage extends ReusableLibrary {
 
     By btn_KreditOK=By.xpath("//div[text()='Data Kredit membutuhkan Approval yang lebih tinggi, Silahkan lihat di menu Management Task!']/../../../descendant::span[text()='Ok']/..");
 
+    By btn_DataSavedSuccessfully=By.xpath("//div[text()='Data Berhasil Disimpan, Lanjutkan Ke Proses Konfirmasi Nasabah !']/../../../descendant::span[text()='Ok']/..");
+
     By btn_OK=By.xpath("//span[text()='Ok']");
 
     By fld_RegistrationNumber=By.xpath("//div[contains(text(),'Data berhasil disimpan')]");
@@ -80,6 +82,12 @@ public class AppraiserPage extends ReusableLibrary {
     public AppraiserPage clickOnKreditOK()
     {
         seleniumUtils.clickOnElement(btn_KreditOK,5,"OK");
+        return this;
+    }
+
+    public AppraiserPage clickOnDataSavedSuccessfully()
+    {
+        seleniumUtils.clickOnElement(btn_DataSavedSuccessfully,5,"OK");
         return this;
     }
 

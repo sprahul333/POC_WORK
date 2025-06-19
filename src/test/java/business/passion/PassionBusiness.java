@@ -90,11 +90,14 @@ public class PassionBusiness extends ReusableLibrary {
 
     public void approveTheRequestUsingBranchManager()
     {
-        appraiserPage.clickOnMyTasks()
+        registrationNumber=appraiserPage.clickOnMyTasks()
                 .selectRecord(registrationNumber)
                 .clickOnSimpan()
                 .clickOnContinue()
-                .clickOnOk();
+                .clickOnDataSavedSuccessfully()
+                        .getReferenceNumber();
+
+        appraiserPage.clickOnOk();
 
         loginPage.clickOnLogOut();
     }
