@@ -58,31 +58,37 @@ public class Hook {
 
         System.out.println(sc.getLine());
 
-        testUtil = Optional.ofNullable(ReusableLibrary.testUtilThread.get())
-                .orElseGet(
-                        () -> {
-                            testUtil.setPropertiesUtil(new PropertiesUtil());
-                            testUtil.setDriver(BrowserUtils.getDriver(testUtil.getPropertiesUtil().getBrowser()));
-                            testUtil.setReports(new Reports(testUtil.getDriver(), testUtil));
-                            testUtil.setElementUtils(new ElementUtils(testUtil.getDriver(),testUtil.getReports()));
-                            testUtil.setExcelUtils(new ExcelUtils());
-                            testUtil.setJsFunctions(new JSFunctions(testUtil.getDriver()));
-                            testUtil.setSeleniumUtils(new SeleniumUtils(testUtil.getDriver(), testUtil.getElementUtils(), testUtil.getReports(), testUtil.getJsFunctions()));
-                            testUtil.setSqlActions(new SQLActions());
-
-                            if (testUtil.getPropertiesUtil().getConsolidatedOrIndividualReport().equalsIgnoreCase("Consolidated"))
-                                testUtil.setExtentReports(new ExtentReportUtil().getExtentReports("Consolidated"));
-
-                            ReusableLibrary.testUtilThread.set(testUtil);
-                            return testUtil;
-                        }
-                );
-
-        Optional.ofNullable(testUtil.getDriver())
+        testUtil =Optional.ofNullable(ReusableLibrary.testUtilThread.get())
+                .map(testUtil -> {
+                    // Check if the driver is null, and reinitialize it if needed
+                    if (testUtil.getDriver() == null) {
+                        testUtil.setDriver(BrowserUtils.getDriver(testUtil.getPropertiesUtil().getBrowser()));
+                        testUtil.setReports(new Reports(testUtil.getDriver(), testUtil));
+                        testUtil.setElementUtils(new ElementUtils(testUtil.getDriver(), testUtil.getReports()));
+                        testUtil.setJsFunctions(new JSFunctions(testUtil.getDriver()));
+                        testUtil.setSeleniumUtils(new SeleniumUtils(testUtil.getDriver(), testUtil.getElementUtils(), testUtil.getReports(), testUtil.getJsFunctions()));
+                    }
+                    return testUtil;  // Return the already initialized or reinitialized testUtil
+                })
                 .orElseGet(() -> {
+                    // Initialize testUtil if it's not already initialized
+                    testUtil.setPropertiesUtil(new PropertiesUtil());
                     testUtil.setDriver(BrowserUtils.getDriver(testUtil.getPropertiesUtil().getBrowser()));
-                    return testUtil.getDriver();
+                    testUtil.setReports(new Reports(testUtil.getDriver(), testUtil));
+                    testUtil.setElementUtils(new ElementUtils(testUtil.getDriver(), testUtil.getReports()));
+                    testUtil.setExcelUtils(new ExcelUtils());
+                    testUtil.setJsFunctions(new JSFunctions(testUtil.getDriver()));
+                    testUtil.setSeleniumUtils(new SeleniumUtils(testUtil.getDriver(), testUtil.getElementUtils(), testUtil.getReports(), testUtil.getJsFunctions()));
+                    testUtil.setSqlActions(new SQLActions());
+
+                    if (testUtil.getPropertiesUtil().getConsolidatedOrIndividualReport().equalsIgnoreCase("Consolidated")) {
+                        testUtil.setExtentReports(new ExtentReportUtil().getExtentReports("Consolidated"));
+                    }
+
+                    ReusableLibrary.testUtilThread.set(testUtil); // Set the testUtil to the thread
+                    return testUtil;  // Return the newly initialized testUtil
                 });
+
 
         if (testUtil.getPropertiesUtil().getConsolidatedOrIndividualReport().equalsIgnoreCase("Individual"))
             testUtil.setExtentReports(new ExtentReportUtil().getExtentReports(getScenarioName(sc)));
