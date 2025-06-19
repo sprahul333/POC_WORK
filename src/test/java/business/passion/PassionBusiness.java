@@ -88,6 +88,21 @@ public class PassionBusiness extends ReusableLibrary {
 
     }
 
+    public void approveTheRequestAtThirdLevel()
+    {
+        registrationNumber=appraiserPage.clickOnMyTasks()
+                .selectRecord(registrationNumber)
+                .clickOnSimpan()
+                .clickOnContinue()
+                .getReferenceNumber();
+
+        appraiserPage.clickOnOk()
+                        .clickOnPrint().clickOnClose();
+
+        loginPage.clickOnLogOut();
+
+    }
+
     public void approveTheRequestUsingBranchManager()
     {
         registrationNumber=appraiserPage.clickOnMyTasks()

@@ -32,7 +32,8 @@ public class AppraiserPage extends ReusableLibrary {
 
     By fld_RegistrationNumber=By.xpath("//div[contains(text(),'Data berhasil disimpan')]");
 
-    By btn_=By.xpath("//span[text()='Cetak']/..");
+    By btn_Print=By.xpath("//span[text()='Cetak']/..");
+
     By btn_Close=By.xpath("//div[contains(@class,'closebox')]");
     /*************************************************************************************************************************************/
 
@@ -93,4 +94,15 @@ public class AppraiserPage extends ReusableLibrary {
         return this;
     }
 
+    public AppraiserPage clickOnClose()
+    {
+        seleniumUtils.clickOnElement(btn_Close,5,"Close");
+        return this;
+    }
+
+    public AppraiserPage clickOnPrint()
+    {
+        seleniumUtils.clickOnElement(btn_Print,5,"Print");
+        return this;
+    }
 }

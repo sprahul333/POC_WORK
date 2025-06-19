@@ -36,6 +36,11 @@ public class PassionStepDefs extends ReusableLibrary
         passionBusiness.approveTheRequest();
     }
 
+    @Then("Approve the Pawn Application at the third level")
+    public void approveThePawnApplicationAtThirdLevel() {
+        passionBusiness.approveTheRequestAtThirdLevel();
+    }
+
     @Then("Approve the Pawn Application using branch manager credentials")
     public void approveThePawnApplicationUsingBranchManager() {
         passionBusiness.approveTheRequestUsingBranchManager();

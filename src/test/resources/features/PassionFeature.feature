@@ -13,7 +13,7 @@ Feature: Submit Product Application (Non-Pawn)
     When Login to the Branch Manager Application
     Then Approve the Pawn Application using branch manager credentials
     When Login to the Appraiser Application
-    Then Approve the Pawn Application
+    Then Approve the Pawn Application at the third level
     When Login to the Cashier Application
     Then Approve the Pawn Application for disbursement using SBG Number "<SBG_Number>"
 
