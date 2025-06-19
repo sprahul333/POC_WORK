@@ -67,6 +67,14 @@ public class PropertiesUtil {
         return getProperty("BranchManagerPassword");
     }
 
+    public String getCashierUserName() {
+        return getProperty("CashierUserName");
+    }
+
+    public String getCashierPassword() {
+        return getProperty("CashierPassword");
+    }
+
     public String getHeadlessTest() {
         return getProperty("Headless");
     }

@@ -16,14 +16,19 @@ public class PassionStepDefs extends ReusableLibrary
         passionBusiness.loginToApplication();
     }
 
-    @And("User Fills the Pawn Application")
-    public void userFillsThePawnApplication() {
-        passionBusiness.fillPawnApplicationPage();
+    @And("User Fills the Pawn Application for Customer ID {string} and Amount {string}")
+    public void userFillsThePawnApplication(String customerID, String amount) {
+        passionBusiness.fillPawnApplicationPage(customerID, amount);
     }
 
     @When("Login to the Appraiser Application")
     public void loginToTheAppraiserApplication() {
         passionBusiness.loginToApplicationUsingSupervisorCredentials();
+    }
+
+    @When("Login to the Cashier Application")
+    public void loginToTheCashierApplication() {
+        passionBusiness.loginToApplicationUsingCashierCredentials();
     }
 
     @Then("Approve the Pawn Application")
@@ -34,5 +39,9 @@ public class PassionStepDefs extends ReusableLibrary
     @When("Login to the Branch Manager Application")
     public void loginToTheBranchManagerApplication() {
         passionBusiness.loginToApplicationUsingBranchManagerCredentials();
+    }
+
+    @Then("Approve the Pawn Application for disbursement using SBG Number {string}")
+    public void approveThePawnApplicationForDisbursementUsingSBGNumber(String sbgNumber) {
     }
 }

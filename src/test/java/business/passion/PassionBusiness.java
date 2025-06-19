@@ -29,6 +29,14 @@ public class PassionBusiness extends ReusableLibrary {
                 .clickLogin();
     }
 
+    public void loginToApplicationUsingCashierCredentials()
+    {
+        seleniumUtils.launchApplication(propertiesUtil.getURL());
+        loginPage.enterUserName(propertiesUtil.getCashierUserName())
+                .enterPassword(propertiesUtil.getCashierPassword())
+                .clickLogin();
+    }
+
     public void loginToApplicationUsingBranchManagerCredentials()
     {
         seleniumUtils.launchApplication(propertiesUtil.getURL());
@@ -37,11 +45,11 @@ public class PassionBusiness extends ReusableLibrary {
                 .clickLogin();
     }
 
-    public void fillPawnApplicationPage()
+    public void fillPawnApplicationPage(String customerID, String amount)
     {
         registrationNumber=pawnApplicationPage.enterMenuID("41010")
                 .clickOnFind()
-                .enterCIFNumber("10000021218")
+                .enterCIFNumber(customerID)
                 .selectTerm("120 Hari")
                 .selectSpecialRate("Ya")
                 .selectTransactionPurpose("Usaha / Modal Kerja")
@@ -53,7 +61,7 @@ public class PassionBusiness extends ReusableLibrary {
                 .enterQuantity("1")
                 .enterColour("HITAM")
                 .enterBrand("ROLLEK")
-                .enterMarketPrice("25000000")
+                .enterMarketPrice(amount)
                 .enterDescription("NEW ARLOJI")
                 .clickOnSaveDetails()
                 .clickOnSave()
