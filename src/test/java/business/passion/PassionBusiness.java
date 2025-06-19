@@ -68,7 +68,10 @@ public class PassionBusiness extends ReusableLibrary {
                 .clickOnContinue()
                 .clickOnOK().getRegistrationNumber();
 
-        reports.logReportsToTheFile(LogStatus.INFO,"Registration Number generated is: "+registrationNumber);
+        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Registration Number generated is: "+registrationNumber);
+
+        testUtil.setData("Application_Number",registrationNumber);
+
         pawnApplicationPage.clickOnSaveData();
 
         loginPage.clickOnLogOut();
@@ -83,6 +86,8 @@ public class PassionBusiness extends ReusableLibrary {
                 .clickOnKreditOK()
                 .getReferenceNumber();
 
+        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Registration Number generated is: "+registrationNumber);
+
         appraiserPage.clickOnOk();
         loginPage.clickOnLogOut();
 
@@ -96,8 +101,28 @@ public class PassionBusiness extends ReusableLibrary {
                 .clickOnContinue()
                 .getReferenceNumber();
 
+        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Registration Number generated is: "+registrationNumber);
+
         appraiserPage.clickOnOk()
                         .clickOnPrint().clickOnClose();
+
+        loginPage.clickOnLogOut();
+
+    }
+
+    public void approveTheRequestAtCashierLevelForDisbursement()
+    {
+        appraiserPage.clickOnMyTasks()
+                .selectRecord(testUtil.getData("Application_Number"))
+                .clickOnEnterCashierDetails_OK()
+                .clickOnSimpan()
+                .clickOnContinue()
+                .getReferenceNumber();
+
+        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Registration Number generated is: "+registrationNumber);
+
+        appraiserPage.clickOnOk()
+                .clickOnPrint().clickOnClose();
 
         loginPage.clickOnLogOut();
 
