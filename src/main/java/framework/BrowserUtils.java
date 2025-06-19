@@ -15,6 +15,7 @@ import org.openqa.selenium.support.events.EventFiringDecorator;
 public class BrowserUtils {
 
     private OptionsManager options = new OptionsManager();
+    private PropertiesUtil propertiesUtil=new PropertiesUtil();
 
     //Killing all the existing browsers
     @SneakyThrows
@@ -22,10 +23,12 @@ public class BrowserUtils {
     {
 //        Runtime.getRuntime() --> This is similar to run command in windows, mac, etc.
 
-        //Purpose of the below commands is to save the RAM and reduce the load on the CPU
-        Runtime.getRuntime().exec("TASKKILL -f -im chromedriver.exe /T");
-        Runtime.getRuntime().exec("TASKKILL -f -im geckodriver.exe /T");
-        Runtime.getRuntime().exec("TASKKILL -f -im msedgedriver.exe /T");
+        if(propertiesUtil.getKillExistingBrowsers().equalsIgnoreCase("True")) {
+            //Purpose of the below commands is to save the RAM and reduce the load on the CPU
+            Runtime.getRuntime().exec("TASKKILL -f -im chromedriver.exe /T");
+            Runtime.getRuntime().exec("TASKKILL -f -im geckodriver.exe /T");
+            Runtime.getRuntime().exec("TASKKILL -f -im msedgedriver.exe /T");
+        }
     }
 
     public WebDriver getDriver(String browserName)

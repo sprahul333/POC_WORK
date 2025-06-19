@@ -35,6 +35,16 @@ public class PropertiesUtil {
         return getProperty("URL");
     }
 
+    public String getKillExistingBrowsers()
+    {
+        return getProperty("KillExistingBrowsers");
+    }
+
+    public String getBrowserClose()
+    {
+        return getProperty("BrowserClose");
+    }
+
     public String getBrowser() {
         return getProperty("Browser");
     }

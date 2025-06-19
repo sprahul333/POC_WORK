@@ -78,6 +78,12 @@ public class Hook {
                         }
                 );
 
+        Optional.ofNullable(testUtil.getDriver())
+                .orElseGet(() -> {
+                    testUtil.setDriver(BrowserUtils.getDriver(testUtil.getPropertiesUtil().getBrowser()));
+                    return testUtil.getDriver();
+                });
+
         if (testUtil.getPropertiesUtil().getConsolidatedOrIndividualReport().equalsIgnoreCase("Individual"))
             testUtil.setExtentReports(new ExtentReportUtil().getExtentReports(getScenarioName(sc)));
 
@@ -95,7 +101,10 @@ public class Hook {
         testUtil.getExtentReports().flush();
 
 
-        testUtil.getDriver().quit();
+        if(testUtil.getPropertiesUtil().getBrowserClose().equalsIgnoreCase("true")) {
+            testUtil.getDriver().quit();
+            testUtil.setDriver(null);
+        }
     }
 
     @BeforeStep
