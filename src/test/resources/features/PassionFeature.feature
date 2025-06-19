@@ -11,7 +11,7 @@ Feature: Submit Product Application (Non-Pawn)
     When Login to the Appraiser Application
     Then Approve the Pawn Application
     When Login to the Branch Manager Application
-    Then Approve the Pawn Application
+    Then Approve the Pawn Application using branch manager credentials
     When Login to the Appraiser Application
     Then Approve the Pawn Application
     When Login to the Cashier Application

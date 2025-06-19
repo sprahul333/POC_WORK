@@ -2,6 +2,7 @@ package pages.passion;
 
 import framework.PathUtils;
 import framework.ReusableLibrary;
+import framework.constants.LogStatus;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.openqa.selenium.By;
@@ -71,6 +72,7 @@ public class AppraiserPage extends ReusableLibrary {
 
     public AppraiserPage clickOnOk()
     {
+        reports.logReportsToTheFile(LogStatus.INFO,"Capturing the Pop Up");
         seleniumUtils.clickOnElement(btn_OK,5,"OK");
         return this;
     }
