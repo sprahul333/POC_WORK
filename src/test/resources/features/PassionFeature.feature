@@ -18,8 +18,8 @@ Feature: Submit Product Application (Non-Pawn)
     Then Approve the Pawn Application for disbursement using SBG Number "<SBG_Number>"
 
     Examples:
-      | Customer ID | Amount | SBG_Number |
-      |             |        |            |
+      | Customer ID | Amount   | SBG_Number |
+      | 10000021218 | 25000000 |            |
 
 #    And the user performs approval or confirmation of the pawn application
 #    And approval is given by the Pawn Manager (P84038B / 123)
