@@ -92,6 +92,7 @@ public class Hook {
 //        System.out.println("Performing actions after each scenario");
 
         testUtil.getExtentReports().flush();
+        testUtil.getDriver().quit();
     }
 
     @BeforeStep
