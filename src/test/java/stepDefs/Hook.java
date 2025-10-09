@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 //This is the main component of the Cucumber framework.
@@ -34,6 +35,7 @@ public class Hook {
     private int currentStepDefIndex = 0;
     ExtentTest testCase;
     ExtentTest stepDef;
+    private static int counter=1;
     String dbTestCaseName="";
 
     @BeforeAll
@@ -49,7 +51,18 @@ public class Hook {
     }
 
     @Before
-    public void performBefore(Scenario sc) {
+    public synchronized void performBefore(Scenario sc)
+    {
+        if(testUtil.getData("Parallel_Not").isBlank())
+        {
+            testUtil.setData("Parallel_Not",Thread.activeCount() - 2 > 0 ? "Parallel" : "Not Parallel");
+            System.setProperty("Parallel_Not", Thread.activeCount() - 2 > 0 ? "Parallel" : "Not Parallel");
+        }
+
+        if(System.getProperty("Parallel_Not").equals("Parallel"))
+        {
+            PathUtils.applySleep(ThreadLocalRandom.current().nextInt(5000,10000));
+        }
 
         testUtil =Optional.ofNullable(ReusableLibrary.testUtilThread.get())
                 .map(testUtil -> {
@@ -60,6 +73,7 @@ public class Hook {
                         testUtil.setElementUtils(new ElementUtils(testUtil.getDriver(), testUtil.getReports()));
                         testUtil.setJsFunctions(new JSFunctions(testUtil.getDriver()));
                         testUtil.setSeleniumUtils(new SeleniumUtils(testUtil.getDriver(), testUtil.getElementUtils(), testUtil.getReports(), testUtil.getJsFunctions()));
+                        testUtil.setScenarioName(getScenarioName(sc));
                     }
                     return testUtil;  // Return the already initialized or reinitialized testUtil
                 })
@@ -73,6 +87,7 @@ public class Hook {
                     testUtil.setJsFunctions(new JSFunctions(testUtil.getDriver()));
                     testUtil.setSeleniumUtils(new SeleniumUtils(testUtil.getDriver(), testUtil.getElementUtils(), testUtil.getReports(), testUtil.getJsFunctions()));
                     testUtil.setSqlActions(new SQLActions());
+                    testUtil.setScenarioName(getScenarioName(sc));
 
                     if (testUtil.getPropertiesUtil().getConsolidatedOrIndividualReport().equalsIgnoreCase("Consolidated")) {
                         testUtil.setExtentReports(new ExtentReportUtil().getExtentReports("Consolidated"));
@@ -87,8 +102,36 @@ public class Hook {
             testUtil.setExtentReports(new ExtentReportUtil().getExtentReports(getScenarioName(sc)));
 
         testUtil.setData("Language",getLanguage(sc));
-        testUtil.setScenarioName(getScenarioName(sc));
-        testCase = testUtil.getExtentReports().createTest(testUtil.getScenarioName());
+
+        if (testUtil.getPropertiesUtil().getConsolidatedOrIndividualReport().equalsIgnoreCase("Consolidated"))
+        {
+            if(System.getProperty("Parallel_Not").equalsIgnoreCase("Parallel"))
+            {
+                if (testUtil.getData("Parallel_Not").equalsIgnoreCase("Parallel"))
+                {
+                    System.setProperty(testUtil.getScenarioName(), "0");
+                    testUtil.setScenarioName(getScenarioName(sc) + "_" + System.getProperty(testUtil.getScenarioName()));
+                }
+
+                else {
+                    System.setProperty(testUtil.getScenarioName(), String.valueOf(Integer.parseInt(System.getProperty(testUtil.getScenarioName()))+1));
+                    testUtil.setScenarioName(getScenarioName(sc) + "_" + System.getProperty(testUtil.getScenarioName()));
+                }
+            }
+
+            else
+            {
+                testUtil.setScenarioName(getScenarioName(sc) + "_" + counter);
+                counter++;
+            }
+
+            testCase = testUtil.getExtentReports().createTest(testUtil.getScenarioName());
+        }
+
+        else {
+            testCase = testUtil.getExtentReports().createTest(testUtil.getScenarioName());
+        }
+
         testUtil.setExtentTest(testCase);
     }
 

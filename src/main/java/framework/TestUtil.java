@@ -29,6 +29,7 @@ public class TestUtil {
     private SQLActions sqlActions;
 
     private Map<String,String> testData=new HashMap<>();
+    private Map<String,Integer> tracker=new HashMap<>();
 
     public void setData(String key,String value)
     {
@@ -38,5 +39,15 @@ public class TestUtil {
     public String getData(String key)
     {
         return testData.getOrDefault(key,"");
+    }
+
+    public synchronized void setTracker(String key,int value)
+    {
+        tracker.put(key,value);
+    }
+
+    public synchronized int getTracker(String key)
+    {
+        return tracker.getOrDefault(key,-1);
     }
 }

@@ -5,7 +5,7 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
-        features = "./src/test/resources/features/SampleFeature_Bahasa.feature", //Path of the feature files
+        features = "./src/test/resources/features/SampleFeature.feature", //Path of the feature files
         glue = "stepDefs", //Path/Package of the step definitions
         tags = "@CreateCustomer", //Mention the tag name to run the specific scenarios
         monochrome = true, //If true, it will display the console output in a proper readable format
@@ -21,7 +21,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
 
     //Below data provider is used to collect all the required scenarios based on the tags mentioned in the CucumberOptions
     //Once the scenarios are collected, then it will pass the scenario details to the Hook class via Scenario object
-    @DataProvider(parallel = false) //--> Helps us in running the test cases in parallel mode
+    @DataProvider(parallel = true) //--> Helps us in running the test cases in parallel mode
     public Object[][] scenarios()
     {
         return super.scenarios();

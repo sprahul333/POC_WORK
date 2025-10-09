@@ -7,9 +7,27 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 public class ExtentReportUtil {
 
     //Configuring my Extent Reports Object
-    public ExtentReports getExtentReports(String testCaseName) {
+    public synchronized ExtentReports getExtentReports(String testCaseName) {
 
-        ExtentSparkReporter sparkReporter = new ExtentSparkReporter(PathUtils.getExtentReportsPath(testCaseName));
+        ExtentSparkReporter sparkReporter;
+
+        if(!testCaseName.equalsIgnoreCase("Consolidated"))
+        {
+            if (System.getProperty("Parallel_Not").equalsIgnoreCase("Parallel"))
+            {
+                String path = PathUtils.getExtentReportsPath(testCaseName + System.currentTimeMillis());
+                sparkReporter = new ExtentSparkReporter(path);
+            }
+
+            else
+                sparkReporter = new ExtentSparkReporter(PathUtils.getExtentReportsPath(testCaseName));
+        }
+
+        else
+        {
+            sparkReporter = new ExtentSparkReporter(PathUtils.getExtentReportsPath(testCaseName));
+        }
+
         sparkReporter.config().setReportName("XYZ Banking Test Cases");
         sparkReporter.config().setDocumentTitle("Automation Test Results");
         sparkReporter.config().setTheme(Theme.STANDARD);
