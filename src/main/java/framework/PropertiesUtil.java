@@ -134,4 +134,9 @@ public class PropertiesUtil {
     public String getDBPassword() {
         return getProperty(getEnvironment(),"DatabasePassword");
     }
+
+    public String getCaptureScreenshot()
+    {
+        return getProperty("CaptureScreenshots");
+    }
 }

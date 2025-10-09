@@ -1,24 +1,37 @@
 package business;
 
 import actions.HomeActions;
+import actions.bankManager.AddCustomerActions;
+import actions.bankManager.BankManagerActions;
 import framework.ReusableLibrary;
+import org.testng.Assert;
 
 public class BankManagerBusiness extends ReusableLibrary {
 
     HomeActions homeActions = new HomeActions();
+    BankManagerActions bankManagerBusiness = null;
+    AddCustomerActions addCustomerActions = null;
+
+    public void navigateToBankManagerScreen()
+    {
+        bankManagerBusiness = homeActions.clickOnHome().clickOnBankManagerLogin();
+    }
+
+    public void navigateToAddCustomersScreen()
+    {
+        addCustomerActions = bankManagerBusiness.clickOnAddCustomers();
+    }
 
     public void createCustomer(String firstName,String lastName, String postalCode)
     {
         testUtil.setData("Customer Name",firstName+" "+lastName);
 
-        String customerID=homeActions.clickOnHome().clickOnBankManagerLogin()
-                .clickOnAddCustomers()
-                .enterFirstName(firstName)
+        String customerID=addCustomerActions.enterFirstName(firstName)
                 .enterLastName(lastName)
                 .enterPostCode(postalCode)
                 .clickOnAddCustomer();
 
-        System.out.println(customerID);
+        testUtil.setData("Customer ID",customerID);
     }
 
     public void createAccounts(String currency)
@@ -29,7 +42,13 @@ public class BankManagerBusiness extends ReusableLibrary {
                 .selectCurrency(currency)
                 .clickOnProcess();
 
-        System.out.println(customerID);
+        testUtil.setData("Customer ID",customerID);
+    }
+
+    public void validateCustomerDetails()
+    {
+        String data=testUtil.getData("Customer ID");
+        Assert.assertTrue(data.contains("Customer added successfully"));
     }
 
     public void searchForCustomer()

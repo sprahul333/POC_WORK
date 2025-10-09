@@ -56,15 +56,42 @@ public class Reports {
         switch (logStatus)
         {
             case PASS -> reports.log(Status.PASS,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
-            case PASS_SCREENSHOT -> reports.log(Status.PASS,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+            case PASS_SCREENSHOT ->{
+
+                if(testUtil.getPropertiesUtil().getCaptureScreenshot().equalsIgnoreCase("True"))
+                    reports.log(Status.PASS,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+                else
+                    reports.log(Status.PASS,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
+            }
+
             case FAIL -> reports.log(Status.FAIL,message);
-            case FAIL_SCREENSHOT -> reports.log(Status.FAIL,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+            case FAIL_SCREENSHOT -> {
+
+                if(testUtil.getPropertiesUtil().getCaptureScreenshot().equalsIgnoreCase("True"))
+                    reports.log(Status.FAIL,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+                else
+                    reports.log(Status.FAIL,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
+            }
             case WARNING -> reports.log(Status.WARNING,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
             case WARNING_SCREENSHOT -> reports.log(Status.WARNING,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
             case INFO -> reports.log(Status.INFO,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
-            case INFO_SCREENSHOT -> reports.log(Status.INFO,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+            case INFO_SCREENSHOT -> {
+
+                if(testUtil.getPropertiesUtil().getCaptureScreenshot().equalsIgnoreCase("True"))
+                    reports.log(Status.INFO,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+                else
+                    reports.log(Status.INFO,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
+
+            }
             case SKIP -> reports.log(Status.SKIP,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
-            case SKIP_SCREENSHOT -> reports.log(Status.SKIP,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+            case SKIP_SCREENSHOT -> {
+
+                if(testUtil.getPropertiesUtil().getCaptureScreenshot().equalsIgnoreCase("True"))
+                    reports.log(Status.SKIP,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+                else
+                    reports.log(Status.SKIP,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
+
+            }
         }
     }
 
