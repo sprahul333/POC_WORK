@@ -113,6 +113,10 @@ public class OptionsManager {
 
         edgeOptions.setExperimentalOption("prefs", prefs);
 
+        if(!prop.getResolutionSize().isBlank())
+            edgeOptions.addArguments("window-size="+prop.getResolutionSize());
+
+
         if(prop.getIncognitoMode().equalsIgnoreCase("Yes") || prop.getIncognitoMode().equalsIgnoreCase("True"))
         {
             edgeOptions.addArguments("--incognito");

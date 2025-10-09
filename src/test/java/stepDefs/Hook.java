@@ -14,8 +14,7 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -23,19 +22,12 @@ import java.util.stream.Collectors;
 //Where it facilitates the activities that needs to be performed before and after execution of test cases
 public class Hook {
 
-    //Different annotations present in Cucumber framework:
-    //1. BeforeAll --> Before triggering the test cases of the test suite
-    //2. AfterAll --> After triggering the test cases of the test suite
-    //3. Before --> Set of activities that needs to be performed before every scenario is triggered
-    //4. After --> Set of activities that needs to be performed after every scenario is triggered
-    //5. BeforeStep --> Set of activities that needs to be performed before the exeuction of every step
-    //6. AfterStep --> Set of activities that needs to be performed after the exeuction of every step
-
     TestUtil testUtil = new TestUtil();
     private int currentStepDefIndex = 0;
     ExtentTest testCase;
     ExtentTest stepDef;
     private static int counter=1;
+    static Map<String, Integer> scenariosCounter = Collections.synchronizedMap(new HashMap<String, Integer>());
     String dbTestCaseName="";
 
     @BeforeAll
@@ -51,7 +43,7 @@ public class Hook {
     }
 
     @Before
-    public synchronized void performBefore(Scenario sc)
+    public void performBefore(Scenario sc)
     {
         if(testUtil.getData("Parallel_Not").isBlank())
         {
@@ -61,7 +53,7 @@ public class Hook {
 
         if(System.getProperty("Parallel_Not").equals("Parallel"))
         {
-            PathUtils.applySleep(ThreadLocalRandom.current().nextInt(5000,10000));
+            PathUtils.applySleep(ThreadLocalRandom.current().nextInt(1000,10000));
         }
 
         testUtil =Optional.ofNullable(ReusableLibrary.testUtilThread.get())
@@ -105,26 +97,7 @@ public class Hook {
 
         if (testUtil.getPropertiesUtil().getConsolidatedOrIndividualReport().equalsIgnoreCase("Consolidated"))
         {
-            if(System.getProperty("Parallel_Not").equalsIgnoreCase("Parallel"))
-            {
-                if (testUtil.getData("Parallel_Not").equalsIgnoreCase("Parallel"))
-                {
-                    System.setProperty(testUtil.getScenarioName(), "0");
-                    testUtil.setScenarioName(getScenarioName(sc) + "_" + System.getProperty(testUtil.getScenarioName()));
-                }
-
-                else {
-                    System.setProperty(testUtil.getScenarioName(), String.valueOf(Integer.parseInt(System.getProperty(testUtil.getScenarioName()))+1));
-                    testUtil.setScenarioName(getScenarioName(sc) + "_" + System.getProperty(testUtil.getScenarioName()));
-                }
-            }
-
-            else
-            {
-                testUtil.setScenarioName(getScenarioName(sc) + "_" + counter);
-                counter++;
-            }
-
+            fetchScenarioNameInParallel(sc);
             testCase = testUtil.getExtentReports().createTest(testUtil.getScenarioName());
         }
 
@@ -133,6 +106,34 @@ public class Hook {
         }
 
         testUtil.setExtentTest(testCase);
+    }
+
+    private synchronized void fetchScenarioNameInParallel(Scenario sc)
+    {
+        if(testUtil.getData("Parallel_Not").equalsIgnoreCase("Parallel"))
+        {
+            Random random = new Random();
+            long delay = Math.abs(random.nextInt(6000));
+            PathUtils.applySleep(delay);
+
+            if (scenariosCounter.containsKey(sc.getName())) {
+                scenariosCounter.put(sc.getName(), scenariosCounter.get(sc.getName()) + 1);
+
+            } else {
+                scenariosCounter.put(sc.getName(), 1);
+            }
+
+            System.out.println(scenariosCounter);
+
+            testUtil.setScenarioName(getScenarioName(sc)+"_"+scenariosCounter.get(sc.getName()));
+        }
+
+        else
+        {
+            testUtil.setScenarioName(getScenarioName(sc) + "_" + counter);
+            counter++;
+        }
+
     }
 
     @After

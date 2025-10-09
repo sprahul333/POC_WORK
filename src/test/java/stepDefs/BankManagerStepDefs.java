@@ -11,6 +11,7 @@ import io.cucumber.java.id.Dan;
 import io.cucumber.java.id.Ketika;
 import io.cucumber.java.id.Maka;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.Map;
 
@@ -74,4 +75,35 @@ public class BankManagerStepDefs
     public void verifyCustomerIsCreatedSuccessfully() {
         business.validateCustomerDetails();
     }
+
+    @When("Click On Open Account")
+    @Ketika("Klik Buka Akun")
+    public void clickOnOpenCustomer() {
+        business.navigateToOpenCustomerScreen();
+    }
+
+    @And("Create an Account")
+    public void createAnAccount(DataTable dataTable)
+    {
+        List<Map<String,String>> dataSet=dataTable.asMaps();
+        dataSet.forEach(map -> {
+            business.createAccounts(map.get("currency_data"));
+        });
+    }
+
+    @Dan("Buat Akun")
+    public void createAnAccount_Bahasa(DataTable dataTable)
+    {
+        List<Map<String,String>> dataSet=dataTable.asMaps();
+        dataSet.forEach(map -> {
+            business.createAccounts(map.get("mata_uang"));
+        });
+    }
+
+    @Then("Verify Account is created successfully")
+    @Maka("Verifikasi Akun berhasil dibuat")
+    public void verifyAccountIsCreatedSuccessfully() {
+        business.validateAccountDetails();
+    }
+
 }
