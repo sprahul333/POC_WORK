@@ -26,7 +26,7 @@ public class SeleniumUtils {
     Reports reports;
     JSFunctions jsFunctions;
 
-    public void clickOn(By by, String labelName)
+    public SeleniumUtils clickOn(By by, String labelName)
     {
         try {
             WebElement element = elementUtils.findElement(by,10,labelName);
@@ -53,9 +53,10 @@ public class SeleniumUtils {
             throw new GenericExceptions("Element is stale for the  " + labelName+" please check it");
         }
 
+        return this;
     }
 
-    public void clickOnElements(By by, int time, String labelName)
+    public SeleniumUtils clickOnElements(By by, int time, String labelName)
     {
         try {
             List<WebElement> element = elementUtils.findElements(by, time);
@@ -93,6 +94,8 @@ public class SeleniumUtils {
         {
             throw new GenericExceptions("Element is stale for the  " + labelName+" please check it");
         }
+
+        return this;
     }
 
     public String getTextBoxAttribute(By by, String labelName)
@@ -103,10 +106,11 @@ public class SeleniumUtils {
         return Optional.ofNullable(element.getDomAttribute("value")).orElseGet(()->element.getDomProperty("value"));
     }
 
-    public void sendKeys(By by, Keys keys)
+    public SeleniumUtils sendKeys(By by, Keys keys)
     {
         WebElement element = elementUtils.findElement(by);
         element.sendKeys(keys);
+        return this;
     }
 
     public void typeOn(By by,String data,String labelName)
@@ -147,13 +151,15 @@ public class SeleniumUtils {
         }
     }
 
-    public void switchToAllTheTabsAndWindows() throws InterruptedException {
+    public SeleniumUtils switchToAllTheTabsAndWindows() throws InterruptedException {
         Set<String> handles = driver.getWindowHandles();
 
         for (String handle : handles) {
             driver.switchTo().window(handle);
             Thread.sleep(1000);
         }
+
+        return this;
     }
 
     public String getCurrentURL()
@@ -238,7 +244,7 @@ public class SeleniumUtils {
         });
     }
 
-    public void enterDataInAlert(String data)
+    public SeleniumUtils enterDataInAlert(String data)
     {
         checkIfAlertIsPresent(3).ifPresentOrElse(alert -> {
             alert.sendKeys(data);
@@ -246,6 +252,8 @@ public class SeleniumUtils {
         },()->{
             throw new GenericExceptions("Alert is not present");
         });
+
+        return this;
     }
 
     public String getAlertText()
@@ -262,28 +270,34 @@ public class SeleniumUtils {
     }
 
 
-    public void performMouseHover(By by,String labelName)
+    public SeleniumUtils performMouseHover(By by,String labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
         Actions a1=new Actions(driver);
         a1.moveToElement(element).build().perform();
+
+        return this;
     }
 
-    public void performDragAndDrop(By sourcePath, By destPath)
+    public SeleniumUtils performDragAndDrop(By sourcePath, By destPath)
     {
         WebElement source=elementUtils.findElement(sourcePath,10,"Source");
         WebElement destination=elementUtils.findElement(destPath,10,"Destination");
 
         Actions a1=new Actions(driver);
         a1.dragAndDrop(source,destination).build().perform();
+
+        return this;
     }
 
-    public void performRightClick(By by,String labelName)
+    public SeleniumUtils performRightClick(By by,String labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
 
         Actions a1=new Actions(driver);
         a1.contextClick(element).build().perform();
+
+        return this;
     }
 
     public void performDoubleClick(By by,String labelName)
@@ -301,7 +315,7 @@ public class SeleniumUtils {
         return s1.getFirstSelectedOption().getText();
     }
 
-    public void selectOption(By by, String option, String labelName)
+    public SeleniumUtils selectOption(By by, String option, String labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
         Select s1=new Select(element);
@@ -349,6 +363,8 @@ public class SeleniumUtils {
                 }
             }
         }
+
+        return this;
     }
 
     public String getElementText(By by,String labelName)
@@ -380,7 +396,7 @@ public class SeleniumUtils {
         }
     }
 
-    public void switchToFrame(WebElement element,String labelName)
+    public SeleniumUtils switchToFrame(WebElement element,String labelName)
     {
         try {
             driver.switchTo().frame(element);
@@ -390,9 +406,11 @@ public class SeleniumUtils {
         {
             throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
         }
+
+        return this;
     }
 
-    public void switchToFrame(WebElement element,String labelName,int time)
+    public SeleniumUtils switchToFrame(WebElement element,String labelName,int time)
     {
         try {
             WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(time));
@@ -404,10 +422,12 @@ public class SeleniumUtils {
         {
             throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
         }
+
+        return this;
     }
 
 
-    public void switchToFrame(By by,String labelName)
+    public SeleniumUtils switchToFrame(By by,String labelName)
     {
         WebElement element=elementUtils.findElement(by);
 
@@ -419,9 +439,11 @@ public class SeleniumUtils {
         {
             throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
         }
+
+        return this;
     }
 
-    public void switchToFrame(By by,String labelName, int time)
+    public SeleniumUtils switchToFrame(By by,String labelName, int time)
     {
         WebElement element=elementUtils.findElement(by);
 
@@ -435,10 +457,12 @@ public class SeleniumUtils {
         {
             throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
         }
+
+        return this;
     }
 
 
-    public void switchToFrame(String nameOrID, int time)
+    public SeleniumUtils switchToFrame(String nameOrID, int time)
     {
         try {
             WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(time));
@@ -450,19 +474,23 @@ public class SeleniumUtils {
         {
             throw new GenericExceptions("Unable to switch to the frame with name or ID: "+nameOrID);
         }
+
+        return this;
     }
 
-    public void switchToParentFrame()
+    public SeleniumUtils switchToParentFrame()
     {
         driver.switchTo().parentFrame();
+        return this;
     }
 
-    public void switchOutOfAllFrames()
+    public SeleniumUtils switchOutOfAllFrames()
     {
         driver.switchTo().defaultContent();
+        return this;
     }
 
-    public void switchToFrame(int index)
+    public SeleniumUtils switchToFrame(int index)
     {
         try {
             driver.switchTo().frame(index);
@@ -472,10 +500,11 @@ public class SeleniumUtils {
         {
             throw new GenericExceptions("Unable to switch to the frame with index: "+index);
         }
+        return this;
     }
 
 
-    public void performRequiredKeyboardActions(By by,Keys keys)
+    public SeleniumUtils performRequiredKeyboardActions(By by,Keys keys)
     {
         WebElement element=elementUtils.findElement(by);
 
@@ -484,6 +513,8 @@ public class SeleniumUtils {
         jsFunctions.disableHighlight(element);
 
         element.sendKeys(keys);
+
+        return this;
     }
 
     public void performRequiredKeyboardActions(WebElement element,Keys keys)
