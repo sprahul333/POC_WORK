@@ -6,10 +6,14 @@ import io.cucumber.core.backend.TestCaseState;
 import io.cucumber.java.*;
 import io.cucumber.plugin.event.PickleStepTestStep;
 import io.cucumber.plugin.event.TestCase;
+import lombok.SneakyThrows;
 import org.codehaus.plexus.util.FileUtils;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,17 +51,6 @@ public class Hook {
     @Before
     public void performBefore(Scenario sc) {
 
-        //Prints the name of the scenario
-        System.out.println(sc.getName());
-
-        //Prints the list of tags that are present in the feature file against the given scenario
-        System.out.println(sc.getSourceTagNames());
-
-        //Prints the path of the feature file, where the scenario is being executed
-        System.out.println(sc.getUri());
-
-        System.out.println(sc.getLine());
-
         testUtil =Optional.ofNullable(ReusableLibrary.testUtilThread.get())
                 .map(testUtil -> {
                     // Check if the driver is null, and reinitialize it if needed
@@ -93,6 +86,7 @@ public class Hook {
         if (testUtil.getPropertiesUtil().getConsolidatedOrIndividualReport().equalsIgnoreCase("Individual"))
             testUtil.setExtentReports(new ExtentReportUtil().getExtentReports(getScenarioName(sc)));
 
+        testUtil.setData("Language",getLanguage(sc));
         testUtil.setScenarioName(getScenarioName(sc));
         testCase = testUtil.getExtentReports().createTest(testUtil.getScenarioName());
         testUtil.setExtentTest(testCase);
@@ -142,6 +136,12 @@ public class Hook {
 
     public String getTestCaseName(Scenario sc) {
         return sc.getSourceTagNames().stream().filter(s -> s.contains("TC:")).collect(Collectors.joining("")).replace("@TC:", "");
+    }
+
+    @SneakyThrows
+    public String getLanguage(Scenario sc) {
+        return Files.lines(Paths.get(sc.getUri())).filter(s->s.startsWith("#language:"))
+                .findFirst().orElseGet(() -> "");
     }
 
     public String getCurrentStepText(Scenario sc) {

@@ -9,29 +9,24 @@ public class GenAIUtilities {
 
     public String convertDataFromOneLanguageToAnother(String message)
     {
+        Client client = Client.builder().apiKey("AIzaSyDCFE__Sac7FKDNEZnjmqr5bCdxvDSG9hM").build();
         if(!ReusableLibrary.testUtilThread.get().getData("Language").isBlank())
         {
-            Client client = Client.builder().apiKey("AIzaSyDCFE__Sac7FKDNEZnjmqr5bCdxvDSG9hM").build();
+            GenerateContentResponse response =
+                    client.models.generateContent(
+                            "gemini-2.5-flash",
+                            "Convert the short form of " + System.getProperty("Language") + " into a full name and here is the gherkin link for localised language https://cucumber.io/docs/gherkin/languages and provide only the language name",
+                            null);
 
-            if (!System.getProperty("Language").equalsIgnoreCase("") || System.getProperty("Language") != null) {
-                GenerateContentResponse response =
-                        client.models.generateContent(
-                                "gemini-2.5-flash",
-                                "Convert the short form of " + System.getProperty("Language") + " into a full name and here is the gherkin link for localised language https://cucumber.io/docs/gherkin/languages and provide only the language name",
-                                null);
+            String fullLanguage = response.text();
 
-                String fullLanguage = response.text();
+            response =
+                    client.models.generateContent(
+                            "gemini-2.5-flash",
+                            "Convert " + message + " into " + fullLanguage + " Language and display only the translated text and do not remove any HTML tags because we are using this in our report generation",
+                            null);
 
-                response =
-                        client.models.generateContent(
-                                "gemini-2.5-flash",
-                                "Convert " + message + " into " + fullLanguage + " Language and display only the translated text and do not remove any HTML tags because we are using this in our report generation",
-                                null);
-
-                return response.text();
-            } else {
-                return message;
-            }
+            return response.text();
         }
 
         else {
