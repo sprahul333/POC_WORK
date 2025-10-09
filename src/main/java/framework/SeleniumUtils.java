@@ -26,7 +26,7 @@ public class SeleniumUtils {
     Reports reports;
     JSFunctions jsFunctions;
 
-    public void clickOnElement(By by, String labelName)
+    public void clickOn(By by, String labelName)
     {
         try {
             WebElement element = elementUtils.findElement(by,10,labelName);
@@ -109,7 +109,7 @@ public class SeleniumUtils {
         element.sendKeys(keys);
     }
 
-    public void enterData(By by,String data,String labelName)
+    public void typeOn(By by,String data,String labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
 
@@ -294,14 +294,14 @@ public class SeleniumUtils {
         a1.doubleClick(element).build().perform();
     }
 
-    public String getSelectedValueFromDropDown(By by)
+    public String getSelectedOption(By by)
     {
         WebElement element=elementUtils.findElement(by);
         Select s1=new Select(element);
         return s1.getFirstSelectedOption().getText();
     }
 
-    public void selectValueFromDropDown(By by, String option, String labelName)
+    public void selectOption(By by, String option, String labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
         Select s1=new Select(element);

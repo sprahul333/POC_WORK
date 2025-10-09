@@ -80,6 +80,11 @@ public class PathUtils {
         return System.getProperty("user.dir")+"//Downloads";
     }
 
+    public String getPropertiesFolder(String environment)
+    {
+        return System.getProperty("user.dir")+"//src//test//resources//PropertiesFolder/"+environment+"Config.properties";
+    }
+
     public String getTestDataFolder()
     {
         return System.getProperty("user.dir")+"//src//test//resources//Test_Data//";
