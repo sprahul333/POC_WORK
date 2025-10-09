@@ -1,18 +1,51 @@
-#language: id
-Fitur: Pengajuan Produk (Non Gadai)
+#language:id
+Fitur: Aplikasi Perbankan
 
   Latar Belakang:
-    Dengan Account Officer sudah login
+    Dengan Luncurkan Aplikasi
 
-  @RegressionSuite @CreateLoanApplication @Indonesia
-  Skenario konsep: Pengajuan produk <produk> berhasil
-    Dengan Account Officer berada di halaman Pengajuan Non Gadai
-    Dan Account Officer mengisi data pengajuan dengan outlet pencairan "<outlet>", tujuan pengajuan "<tujuanPengajuan>", tujuan kredit "<tujuanKredit>", rubrik "<rubrik>", jumlah pinjaman "<jumlahPinjaman>", dan produk "<produk>"
-    Dan Account Officer mengisi data nasabah dengan NIK "<nik>", nama nasabah "<namaNasabah>", jenis kelamin "<jenisKelamin>", tempat lahir "<tempatLahir>", kode pos "<kodePos>", kelurahan "<kelurahan>" dan melakukan verifikasi dari Dukcapil
-    Dan Account Officer menambahkan satu jaminan dengan kategori jaminan "<kategoriJaminan>", tipe jaminan "<tipeJaminan>", kondisi jaminan "<kondisiJaminan>"
-    Ketika Account Officer menekan tombol ajukan untuk produk "<produk>"
-    Maka pengajuan berhasil
+  @RegressionSuite @Banking @CreateCustomer
+  Skenario konsep: Buat Pelanggan Baru
+    Dan Buat Pelanggan baru dengan Nama Depan "<first_name>" Nama Belakang "<last_name>" Kode Pos "<postal_code>"
 
     Contoh:
-      | outlet          | tujuanPengajuan | tujuanKredit | rubrik    | jumlahPinjaman | produk | nik              | namaNasabah | jenisKelamin | tempatLahir | kodePos | kelurahan | kategoriJaminan | tipeJaminan  | kondisiJaminan |
-      | CPS KRAMAT RAYA | PRODUKTIF       | INVESTASI    | KENDARAAN | 32000000       | AMANAH | 3577011610960002 | Automation  | Perempuan    | BANDUNG     | 63117   | KLEGEN    | KENDARAAN       | SEPEDA MOTOR | BEKAS          |
+      | first_name | last_name | postal_code |
+      | Hameed     | Joseph    | 89210215    |
+
+  @RegressionSuite @Banking @CreateNewAccount
+  Skenario konsep: Buat Akun Baru
+    Dan Buat Pelanggan baru dengan Nama Depan "<first_name>" Nama Belakang "<last_name>" Kode Pos "<postal_code>"
+    Dan Buat Akun Baru dengan Mata Uang "<Currency>"
+
+    Contoh:
+      | first_name | last_name | postal_code | Currency |
+      |            |           |             |          |
+
+  @RegressionSuite @Banking @SearchCustomers
+  Skenario konsep: Cari Pelanggan
+    Dan Buat Pelanggan baru dengan Nama Depan "<first_name>" Nama Belakang "<last_name>" Kode Pos "<postal_code>"
+    Dan Cari Pelanggan
+
+    Contoh:
+      | first_name | last_name | postal_code |
+      |            |           |             |
+
+  @RegressionSuite @Customer @DepositAmount
+  Skenario konsep: Setor Uang
+    Dan Buat Pelanggan baru dengan Nama Depan "<first_name>" Nama Belakang "<last_name>" Kode Pos "<postal_code>"
+    Dan Buat Akun Baru dengan Mata Uang "<Currency>"
+    Dan Setor Uang sebesar "<Amount>"
+
+    Contoh:
+      | first_name | last_name | postal_code | Currency | Amount |
+      |            |           |             |          |        |
+
+  @RegressionSuite @Customer @WithdrawAmount
+  Skenario konsep: Tarik Uang
+    Dan Buat Pelanggan baru dengan Nama Depan "<first_name>" Nama Belakang "<last_name>" Kode Pos "<postal_code>"
+    Dan Buat Akun Baru dengan Mata Uang "<Currency>"
+    Dan Tarik Uang sebesar "<Amount>"
+
+    Contoh:
+      | first_name | last_name | postal_code | Currency | Amount |
+      |            |           |             |          |        |

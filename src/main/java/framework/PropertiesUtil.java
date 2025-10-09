@@ -30,7 +30,7 @@ public class PropertiesUtil {
     @SneakyThrows
     private String getProperty(String env,String key) {
 
-        InputStreamReader isr = new InputStreamReader(new FileInputStream(PathUtils.getPropertiesFolder(env)+key));
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(PathUtils.getPropertiesFolder(env)));
 
         PropertiesConfiguration propertiesConfiguration = new PropertiesConfiguration();
         PropertiesConfigurationLayout propertiesConfigurationLayout = new PropertiesConfigurationLayout();

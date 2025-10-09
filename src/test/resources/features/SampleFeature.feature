@@ -1,17 +1,51 @@
-Feature: Submit Product Application (Non-Pawn)
+Feature: Banking Application
 
   Background:
-    Given Account Officer is logged in
+    Given Launch the Application
 
-  @RegressionSuite @CreateLoanApplication @English
-  Scenario Outline: Successful submission of product AMANAH
-    Given Account Officer is on the Non-Pawn Application page
-    And Account Officer fills in the application data with disbursement outlet "<Disbursement Outlet>", application purpose "<Application Purpose>",  loan purpose "<Loan Purpose>", rubric "<Rubric>", loan amount "<Loan Amount>", and product "<Product>"
-    And Account Officer fills in the customer data with customer id "<Customer_ID>", customer name "<Customer_Name>", gender "<Gender>", PlaceOfBirth "<PlaceOfBirth>", PinCode "<PinCode>", SubDistrict "<SubDistrict>" and verify from Dukcapil
-    And Account Officer adds One Collateral with Collateral Category "<CollateralCategory>", Collateral Type "<CollateralType>", Collateral Condition "<CollateralCondition>"
-    When Account Officer clicks submit for product "<Product>"
-    Then Application is successful
+  @RegressionSuite @Banking @CreateCustomer
+  Scenario Outline: Create a New Customer
+    And Create a new Customer having First Name "<first_name>" Last Name "<last_name>" Post Code "<postal_code>"
 
     Examples:
-      | Disbursement Outlet | Application Purpose | Loan Purpose | Rubric    | Loan Amount | Product | Customer_ID      | Customer_Name | Gender    | PlaceOfBirth | PinCode | SubDistrict | CollateralCategory | CollateralType | CollateralCondition |
-      | CPS KRAMAT RAYA     | PRODUKTIF           | INVESTASI    | KENDARAAN | 32000000    | AMANAH  | 3577011610960002 | Automation    | Perempuan | BANDUNG      | 63117   | KLEGEN      | KENDARAAN          | SEPEDA MOTOR   | BEKAS               |
+      | first_name | last_name | postal_code |
+      | Hameed     | Joseph    | 89210215    |
+
+  @RegressionSuite @Banking @CreateNewAccount
+  Scenario Outline: Create a New Account
+    And Create a new Customer having First Name "<first_name>" Last Name "<last_name>" Post Code "<postal_code>"
+    And Create a New Account having Currency "<Currency>"
+
+    Examples:
+      | first_name | last_name | postal_code | Currency |
+      | Hameed     | Joseph    | 89210215    | Dollar   |
+
+  @RegressionSuite @Banking @SearchCustomers
+  Scenario Outline: Search for the Customers
+    And Create a new Customer having First Name "<first_name>" Last Name "<last_name>" Post Code "<postal_code>"
+    And Search for the Customer
+
+    Examples:
+      | first_name | last_name | postal_code |
+      |            |           |             |
+
+
+  @RegressionSuite @Customer @DepositAmount
+  Scenario Outline: Deposit the Amount
+    And Create a new Customer having First Name "<first_name>" Last Name "<last_name>" Post Code "<postal_code>"
+    And Create a New Account having Currency "<Currency>"
+    And Deposit the Amount of "<Amount>"
+
+    Examples:
+      | first_name | last_name | postal_code | Currency | Amount |
+      |            |           |             |          |        |
+
+  @RegressionSuite @Customer @WithdrawAmount
+  Scenario Outline: Withdraw the Amount
+    And Create a new Customer having First Name "<first_name>" Last Name "<last_name>" Post Code "<postal_code>"
+    And Create a New Account having Currency "<Currency>"
+    And Withdraw the Amount of "<Amount>"
+
+    Examples:
+      | first_name | last_name | postal_code | Currency | Amount |
+      |            |           |             |          |        |

@@ -10,10 +10,10 @@ public class CustomerHomeScreenActions extends CustomerHomeScreenPage {
         return this;
     }
 
-    public CustomerHomeScreenActions clickOnLogin()
+    public BankTransactionActions clickOnLogin()
     {
         seleniumUtils.clickOn(btn_Login,"Customer Login");
-        return this;
+        return new BankTransactionActions();
     }
 
 }

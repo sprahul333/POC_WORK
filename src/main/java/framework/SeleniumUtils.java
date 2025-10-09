@@ -117,7 +117,7 @@ public class SeleniumUtils {
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
 
-        Optional.ofNullable(element).orElseThrow(() -> new GenericExceptions("Unable to find the element for " + labelName));
+        Optional.ofNullable(element).orElseThrow(() -> new GenericExceptions("Unable to find the element for <b>" + labelName+"</b>"));
 
         element.clear();
         String existingData=getTextBoxAttribute(by,labelName);
@@ -185,6 +185,7 @@ public class SeleniumUtils {
 
         driver.manage().timeouts().pageLoadTimeout(Duration.ofMinutes(10));
 
+        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Launching the application for the URL: <a>"+url+"</a>");
 //        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Launched the application successfully for: "+url);
         return driver.getWindowHandle();
     }
