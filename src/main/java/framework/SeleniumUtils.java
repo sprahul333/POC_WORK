@@ -26,38 +26,10 @@ public class SeleniumUtils {
     Reports reports;
     JSFunctions jsFunctions;
 
-
-    public void clickOnElement(WebElement element, String labelName)
-    {
-        try {
-            if (element == null)
-                throw new GenericExceptions("Unable to find the element for " + labelName);
-
-            jsFunctions.higlightElement(element);
-            PathUtils.applySleep(500);
-            jsFunctions.disableHighlight(element);
-
-            performMouseHover(element);
-            element.click();
-
-            reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Clicked on: <b>"+labelName+"</b>");
-        }
-
-        catch (ElementNotInteractableException e2)
-        {
-            throw new GenericExceptions("Element is not interactable for " + labelName+" please check it");
-        }
-
-        catch (StaleElementReferenceException e1)
-        {
-            throw new GenericExceptions("Element is stale for the  " + labelName+" please check it");
-        }
-    }
-
     public void clickOnElement(By by, String labelName)
     {
         try {
-            WebElement element = elementUtils.findElement(by,labelName);
+            WebElement element = elementUtils.findElement(by,10,labelName);
 
             Optional.ofNullable(element).orElseThrow(() -> new GenericExceptions("Unable to find the element for " + labelName));
 
@@ -81,35 +53,6 @@ public class SeleniumUtils {
             throw new GenericExceptions("Element is stale for the  " + labelName+" please check it");
         }
 
-    }
-
-
-    public void clickOnElement(By by, int time, String labelName)
-    {
-        try {
-            WebElement element = elementUtils.findElement(by, time,labelName);
-
-            Optional.ofNullable(element).orElseThrow(() -> new GenericExceptions("Unable to find the element for " + labelName));
-
-            jsFunctions.higlightElement(element);
-            reports.captureScreenshots();
-            jsFunctions.disableHighlight(element);
-
-            performMouseHover(element);
-
-            element.click();
-            reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Clicked on: <b>"+labelName+"</b>");
-        }
-
-        catch (ElementNotInteractableException e2)
-        {
-            throw new GenericExceptions("Element is not interactable for " + labelName+" please check it");
-        }
-
-        catch (StaleElementReferenceException e1)
-        {
-            throw new GenericExceptions("Element is stale for the  " + labelName+" please check it");
-        }
     }
 
     public void clickOnElements(By by, int time, String labelName)
@@ -152,40 +95,9 @@ public class SeleniumUtils {
         }
     }
 
-    public void enterData(WebElement element,String data,String labelName)
-    {
-        Optional.ofNullable(element).orElseThrow(() -> new GenericExceptions("Unable to find the element for " + labelName));
-
-        //If the data is already present in the text box, erase the existing data
-        String existingData=getTextBoxAttribute(element,labelName);
-        if(!(existingData.isEmpty() || existingData.isBlank()))
-        {
-            for(int i=0;i<existingData.length();i++)
-            {
-                PathUtils.applySleep(100);
-                element.sendKeys(Keys.BACK_SPACE);
-            }
-        }
-
-        jsFunctions.higlightElement(element);
-        reports.captureScreenshots();
-
-
-        element.sendKeys(data);
-        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Entered Data for: "+labelName+" is: "+data);
-        jsFunctions.disableHighlight(element);
-    }
-
     public String getTextBoxAttribute(By by, String labelName)
     {
         WebElement element = elementUtils.findElement(by,labelName);
-        Optional.ofNullable(element).orElseThrow(() -> new GenericExceptions("Unable to find the element for " + labelName));
-
-        return Optional.ofNullable(element.getDomAttribute("value")).orElseGet(()->element.getDomProperty("value"));
-    }
-
-    public String getTextBoxAttribute(WebElement element, String labelName)
-    {
         Optional.ofNullable(element).orElseThrow(() -> new GenericExceptions("Unable to find the element for " + labelName));
 
         return Optional.ofNullable(element.getDomAttribute("value")).orElseGet(()->element.getDomProperty("value"));
@@ -197,43 +109,14 @@ public class SeleniumUtils {
         element.sendKeys(keys);
     }
 
-    public void enterData(By by,String data,int time,String labelName)
-    {
-        WebElement element=elementUtils.findElement(by,time,labelName);
-
-        Optional.ofNullable(element).orElseThrow(() -> new GenericExceptions("Unable to find the element for " + labelName));
-
-        String existingData=getTextBoxAttribute(element,labelName);
-        if(!(existingData.isEmpty() || existingData.isBlank()))
-        {
-            for(int i=0;i<existingData.length();i++)
-            {
-                element.sendKeys(Keys.BACK_SPACE);
-            }
-        }
-
-        jsFunctions.higlightElement(element);
-        reports.captureScreenshots();
-        element.sendKeys(data);
-
-//        if(element.getDomProperty("value").equalsIgnoreCase("") || element.getDomProperty("value").equalsIgnoreCase(""))
-//        {
-//            enterData(by,data,time,labelName);
-//        }
-
-        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Entered Data for: <b>"+labelName+"</b> is: <b>"+data+"</b>");
-        jsFunctions.disableHighlight(element);
-    }
-
-
     public void enterData(By by,String data,String labelName)
     {
-        WebElement element=elementUtils.findElement(by);
+        WebElement element=elementUtils.findElement(by,10,labelName);
 
         Optional.ofNullable(element).orElseThrow(() -> new GenericExceptions("Unable to find the element for " + labelName));
 
         element.clear();
-        String existingData=getTextBoxAttribute(element,labelName);
+        String existingData=getTextBoxAttribute(by,labelName);
         if(!(existingData.isEmpty() || existingData.isBlank()))
         {
             for(int i=0;i<existingData.length();i++)
@@ -280,12 +163,6 @@ public class SeleniumUtils {
 
     public String launchApplication(String url)
     {
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-
         if(url.isBlank() || url.isEmpty())
             throw new GenericExceptions("Given URL is empty or blank");
 
@@ -384,154 +261,38 @@ public class SeleniumUtils {
         a1.moveToElement(element).build().perform();
     }
 
-    public void performMouseHover(WebElement element,String labelName)
+
+    public void performMouseHover(By by,String labelName)
     {
-        Actions a1=new Actions(driver);
-        a1.moveToElement(element).build().perform();
-
-        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Performed Mouse Hover for: "+labelName);
-    }
-
-
-    public void performDragAndDrop(WebElement source, WebElement destination)
-    {
-        Actions a1=new Actions(driver);
-        a1.dragAndDrop(source,destination).build().perform();
-    }
-
-
-    public void performMouseHover(By by, int time,String labelName)
-    {
-        WebElement element=elementUtils.findElement(by,time,labelName);
-        Actions a1=new Actions(driver);
-        a1.moveToElement(element).build().perform();
-
-        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Performed Mouse Hover for: "+labelName);
-    }
-
-
-    public void performDragAndDrop(By sourcePath, By destPath, int time,String labelName)
-    {
-        WebElement source=elementUtils.findElement(sourcePath,time,labelName);
-        WebElement destination=elementUtils.findElement(destPath,time,labelName);
-
-        Actions a1=new Actions(driver);
-        a1.dragAndDrop(source,destination).build().perform();
-    }
-
-    public void performMouseHover(By by)
-    {
-        WebElement element=elementUtils.findElement(by);
+        WebElement element=elementUtils.findElement(by,10,labelName);
         Actions a1=new Actions(driver);
         a1.moveToElement(element).build().perform();
     }
 
     public void performDragAndDrop(By sourcePath, By destPath)
     {
-        WebElement source=elementUtils.findElement(sourcePath);
-        WebElement destination=elementUtils.findElement(destPath);
+        WebElement source=elementUtils.findElement(sourcePath,10,"Source");
+        WebElement destination=elementUtils.findElement(destPath,10,"Destination");
 
         Actions a1=new Actions(driver);
         a1.dragAndDrop(source,destination).build().perform();
     }
 
-    public void performRightClick(WebElement element)
+    public void performRightClick(By by,String labelName)
     {
-        Actions a1=new Actions(driver);
-        a1.contextClick(element).build().perform();
-    }
-
-    public void performRightClick(By by)
-    {
-        WebElement element=elementUtils.findElement(by);
+        WebElement element=elementUtils.findElement(by,10,labelName);
 
         Actions a1=new Actions(driver);
         a1.contextClick(element).build().perform();
-    }
-
-    public void performRightClick(By by, int time,String labelName)
-    {
-        WebElement element=elementUtils.findElement(by,time,labelName);
-        Actions a1=new Actions(driver);
-        a1.contextClick(element).build().perform();
-    }
-
-    public void performDoubleClick(WebElement element,String labelName)
-    {
-        Actions a1=new Actions(driver);
-        a1.doubleClick(element).build().perform();
     }
 
     public void performDoubleClick(By by,String labelName)
     {
-        WebElement element=elementUtils.findElement(by);
+        WebElement element=elementUtils.findElement(by,10,labelName);
 
         Actions a1=new Actions(driver);
         a1.doubleClick(element).build().perform();
     }
-
-    public void performDoubleClick(By by, int time,String labelName)
-    {
-        WebElement element=elementUtils.findElement(by,time,labelName);
-        Actions a1=new Actions(driver);
-        a1.doubleClick(element).build().perform();
-    }
-
-    public void selectValueFromDropDown(WebElement element, String option, String labelName)
-    {
-        Select s1=new Select(element);
-        if(option.isBlank() || option.isEmpty())
-        {
-            List<WebElement> options=s1.getOptions();
-            //ThreadLocalRandom.current().nextInt(0, options.size()-1) --> This is a function we select a random number between 0, options.size()-1
-            s1.selectByIndex(ThreadLocalRandom.current().nextInt(0, options.size()-1));
-        }
-
-        else
-        {
-            try
-            {
-                s1.selectByVisibleText(option);
-            }
-
-            catch (NoSuchElementException r5)
-            {
-                try
-                {
-                    s1.selectByContainsVisibleText(option);
-                }
-
-                catch (NoSuchElementException r6)
-                {
-                    try
-                    {
-                        s1.selectByValue(option);
-                    }
-
-                    catch (NoSuchElementException r7)
-                    {
-                        try
-                        {
-                            s1.selectByIndex(Integer.parseInt(option));
-                        }
-
-                        catch (NoSuchElementException r8)
-                        {
-                            throw new GenericExceptions("Unable to select the value from the dropdown for "+labelName);
-                        }
-
-                    }
-                }
-            }
-        }
-    }
-
-    public String getSelectedValueFromDropDown(WebElement element)
-    {
-        Select s1=new Select(element);
-        return s1.getFirstSelectedOption().getText();
-    }
-
 
     public String getSelectedValueFromDropDown(By by)
     {
@@ -542,7 +303,7 @@ public class SeleniumUtils {
 
     public void selectValueFromDropDown(By by, String option, String labelName)
     {
-        WebElement element=elementUtils.findElement(by);
+        WebElement element=elementUtils.findElement(by,10,labelName);
         Select s1=new Select(element);
         if(option.isBlank() || option.isEmpty())
         {
@@ -588,100 +349,11 @@ public class SeleniumUtils {
                 }
             }
         }
-    }
-
-    public void selectValueFromDropDown(By by, String option,int sec, String labelName)
-    {
-        WebElement element=elementUtils.findElement(by,sec,labelName);
-        Select s1=new Select(element);
-        if(option.isBlank() || option.isEmpty())
-        {
-            List<WebElement> options=s1.getOptions();
-            //ThreadLocalRandom.current().nextInt(0, options.size()-1) --> This is a function we select a random number between 0, options.size()-1
-            s1.selectByIndex(ThreadLocalRandom.current().nextInt(0, options.size()-1));
-        }
-
-        else
-        {
-            try
-            {
-                s1.selectByVisibleText(option);
-            }
-
-            catch (NoSuchElementException r5)
-            {
-                try
-                {
-                    s1.selectByContainsVisibleText(option);
-                }
-
-                catch (NoSuchElementException r6)
-                {
-                    try
-                    {
-                        s1.selectByValue(option);
-                    }
-
-                    catch (NoSuchElementException r7)
-                    {
-                        try
-                        {
-                            s1.selectByIndex(Integer.parseInt(option));
-                        }
-
-                        catch (NoSuchElementException r8)
-                        {
-                            throw new GenericExceptions("Unable to select the value from the dropdown for "+labelName);
-                        }
-
-                    }
-                }
-            }
-        }
-
-        jsFunctions.higlightElement(element);
-        reports.captureScreenshots();
-        jsFunctions.disableHighlight(element);
-
-        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Selected Value from Drop Down is: "+getSelectedValueFromDropDown(element));
-
-    }
-
-    public String getElementText(WebElement element,String labelName)
-    {
-        if(element==null)
-            throw new GenericExceptions("Unable to find the element");
-
-        performMouseHover(element);
-
-        jsFunctions.higlightElement(element);
-        reports.captureScreenshots();
-        jsFunctions.disableHighlight(element);
-
-        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Text Fetched for: "+labelName+" is: "+element.getText());
-        return element.getText();
     }
 
     public String getElementText(By by,String labelName)
     {
-        WebElement element=elementUtils.findElement(by);
-
-        if(element==null)
-            throw new GenericExceptions("Unable to find the element");
-
-        performMouseHover(element);
-
-        jsFunctions.higlightElement(element);
-        reports.captureScreenshots();
-        jsFunctions.disableHighlight(element);
-
-        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Text Fetched for: "+labelName+" is: "+element.getText());
-        return element.getText();
-    }
-
-    public String getElementText(By by, int time,String labelName)
-    {
-        WebElement element=elementUtils.findElement(by,time,labelName);
+        WebElement element=elementUtils.findElement(by,10,labelName);
 
         if(element==null)
             throw new GenericExceptions("Unable to find the element");
@@ -823,13 +495,6 @@ public class SeleniumUtils {
         element.sendKeys(keys);
     }
 
-    public void performWheelScroll(WebElement element)
-    {
-        Actions actions = new Actions(driver);
-        actions.scrollToElement(element).perform();
-    }
-
-
     public void performWheelScroll(By by)
     {
         WebElement element=elementUtils.findElement(by);
@@ -844,7 +509,6 @@ public class SeleniumUtils {
         for(int i=0;i<3;i++) {
             driver.switchTo().activeElement().sendKeys(keys);
         }
-
 
     }
 

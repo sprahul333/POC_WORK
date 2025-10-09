@@ -55,16 +55,16 @@ public class Reports {
         ExtentTest reports=testUtil.getExtentTest();
         switch (logStatus)
         {
-            case PASS -> reports.log(Status.PASS,message);
-            case PASS_SCREENSHOT -> reports.log(Status.PASS,message, MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+            case PASS -> reports.log(Status.PASS,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
+            case PASS_SCREENSHOT -> reports.log(Status.PASS,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
             case FAIL -> reports.log(Status.FAIL,message);
-            case FAIL_SCREENSHOT -> reports.log(Status.FAIL,message, MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
-            case WARNING -> reports.log(Status.WARNING,message);
-            case WARNING_SCREENSHOT -> reports.log(Status.WARNING,message, MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
-            case INFO -> reports.log(Status.INFO,message);
-            case INFO_SCREENSHOT -> reports.log(Status.INFO,message, MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
-            case SKIP -> reports.log(Status.SKIP,message);
-            case SKIP_SCREENSHOT -> reports.log(Status.SKIP,message, MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+            case FAIL_SCREENSHOT -> reports.log(Status.FAIL,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+            case WARNING -> reports.log(Status.WARNING,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
+            case WARNING_SCREENSHOT -> reports.log(Status.WARNING,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+            case INFO -> reports.log(Status.INFO,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
+            case INFO_SCREENSHOT -> reports.log(Status.INFO,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
+            case SKIP -> reports.log(Status.SKIP,GenAIUtilities.convertDataFromOneLanguageToAnother(message));
+            case SKIP_SCREENSHOT -> reports.log(Status.SKIP,GenAIUtilities.convertDataFromOneLanguageToAnother(message), MediaEntityBuilder.createScreenCaptureFromBase64String(captureScreenshots_Base64(message)).build());
         }
     }
 

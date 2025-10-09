@@ -27,12 +27,30 @@ public class PropertiesUtil {
         propertiesConfigurationLayout.load(propertiesConfiguration, isr);
     }
 
+    @SneakyThrows
+    private String getProperty(String env,String key) {
+
+        InputStreamReader isr = new InputStreamReader(new FileInputStream("Config.properties"));
+
+        PropertiesConfiguration propertiesConfiguration = new PropertiesConfiguration();
+        PropertiesConfigurationLayout propertiesConfigurationLayout = new PropertiesConfigurationLayout();
+
+        propertiesConfigurationLayout.load(propertiesConfiguration, isr);
+
+        return propertiesConfiguration.getString(key, key + " not found");
+    }
+
     private String getProperty(String key) {
         return propertiesConfiguration.getString(key, key + " not found");
     }
 
+    public String getEnvironment()
+    {
+        return getProperty("Environment");
+    }
+
     public String getURL() {
-        return getProperty("URL");
+        return getProperty(getEnvironment(),"URL");
     }
 
     public String getKillExistingBrowsers()
@@ -54,35 +72,35 @@ public class PropertiesUtil {
     }
 
     public String getUserName() {
-        return getProperty("UserName");
+        return getProperty(getEnvironment(),"UserName");
     }
 
     public String getPassword() {
-        return getProperty("Password");
+        return getProperty(getEnvironment(),"Password");
     }
 
     public String getSupervisorUserName() {
-        return getProperty("SuperVisorUserName");
+        return getProperty(getEnvironment(),"SuperVisorUserName");
     }
 
     public String getSuperVisorPassword() {
-        return getProperty("SuperVisorPassword");
+        return getProperty(getEnvironment(),"SuperVisorPassword");
     }
 
     public String getBranchUserName() {
-        return getProperty("BranchManagerUserName");
+        return getProperty(getEnvironment(),"BranchManagerUserName");
     }
 
     public String getBranchPassword() {
-        return getProperty("BranchManagerPassword");
+        return getProperty(getEnvironment(),"BranchManagerPassword");
     }
 
     public String getCashierUserName() {
-        return getProperty("CashierUserName");
+        return getProperty(getEnvironment(),"CashierUserName");
     }
 
     public String getCashierPassword() {
-        return getProperty("CashierPassword");
+        return getProperty(getEnvironment(),"CashierPassword");
     }
 
     public String getHeadlessTest() {
@@ -98,7 +116,7 @@ public class PropertiesUtil {
     }
 
     public String getDatabaseIP() {
-        return getProperty("DatabaseIP");
+        return getProperty(getEnvironment(),"DatabaseIP");
     }
 
     public String getReleaseNumber() {
@@ -106,20 +124,14 @@ public class PropertiesUtil {
     }
 
     public String getDatabaseName() {
-        return getProperty("DatabaseName");
+        return getProperty(getEnvironment(),"DatabaseName");
     }
 
     public String getDBUserName() {
-        return getProperty("DatabaseUser");
+        return getProperty(getEnvironment(),"DatabaseUser");
     }
 
     public String getDBPassword() {
-        return getProperty("DatabasePassword");
+        return getProperty(getEnvironment(),"DatabasePassword");
     }
-
-//    public static void main(String[] args) {
-//        PropertiesUtil propertiesUtil=new PropertiesUtil();
-//        System.out.println(propertiesUtil.getBrowser());
-//        System.out.println(propertiesUtil.getUserName());
-//    }
 }

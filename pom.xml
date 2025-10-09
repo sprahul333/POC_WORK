@@ -26,6 +26,7 @@
         <faker-version>LATEST</faker-version>
         <plexus-utils>LATEST</plexus-utils>
         <cucumber-report-version>LATEST</cucumber-report-version>
+        <gemini-ai>LATEST</gemini-ai>
     </properties>
 
     <!--<build>
@@ -64,6 +65,13 @@
     </build>
 -->
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/com.google.genai/google-genai -->
+        <dependency>
+            <groupId>com.google.genai</groupId>
+            <artifactId>google-genai</artifactId>
+            <version>${gemini-ai}</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
         <dependency>
