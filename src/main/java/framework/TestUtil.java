@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import lombok.Data;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class TestUtil {
     private ExtentReports extentReports;
     private ExtentTest extentTest;
     private String scenarioName;
+    private Actions actions;
     private String currentStep;
     private SQLActions sqlActions;
 

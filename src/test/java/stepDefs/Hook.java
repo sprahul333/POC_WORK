@@ -8,6 +8,7 @@ import io.cucumber.plugin.event.PickleStepTestStep;
 import io.cucumber.plugin.event.TestCase;
 import lombok.SneakyThrows;
 import org.codehaus.plexus.util.FileUtils;
+import org.openqa.selenium.interactions.Actions;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -64,7 +65,8 @@ public class Hook {
                         testUtil.setReports(new Reports(testUtil.getDriver(), testUtil));
                         testUtil.setElementUtils(new ElementUtils(testUtil.getDriver(), testUtil.getReports()));
                         testUtil.setJsFunctions(new JSFunctions(testUtil.getDriver()));
-                        testUtil.setSeleniumUtils(new SeleniumUtils(testUtil.getDriver(), testUtil.getElementUtils(), testUtil.getReports(), testUtil.getJsFunctions()));
+                        testUtil.setActions(new Actions(testUtil.getDriver()));
+                        testUtil.setSeleniumUtils(new SeleniumUtils(testUtil.getDriver(), testUtil.getElementUtils(), testUtil.getReports(), testUtil.getJsFunctions(),testUtil.getActions()));
                         testUtil.setScenarioName(getScenarioName(sc));
                     }
                     return testUtil;  // Return the already initialized or reinitialized testUtil
@@ -77,7 +79,8 @@ public class Hook {
                     testUtil.setElementUtils(new ElementUtils(testUtil.getDriver(), testUtil.getReports()));
                     testUtil.setExcelUtils(new ExcelUtils());
                     testUtil.setJsFunctions(new JSFunctions(testUtil.getDriver()));
-                    testUtil.setSeleniumUtils(new SeleniumUtils(testUtil.getDriver(), testUtil.getElementUtils(), testUtil.getReports(), testUtil.getJsFunctions()));
+                    testUtil.setActions(new Actions(testUtil.getDriver()));
+                    testUtil.setSeleniumUtils(new SeleniumUtils(testUtil.getDriver(), testUtil.getElementUtils(), testUtil.getReports(), testUtil.getJsFunctions(),testUtil.getActions()));
                     testUtil.setSqlActions(new SQLActions());
                     testUtil.setScenarioName(getScenarioName(sc));
 

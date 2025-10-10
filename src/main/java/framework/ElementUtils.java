@@ -33,7 +33,7 @@ public class ElementUtils {
         }
     }
 
-    public WebElement findElement(By by, String labelName)
+    public WebElement findElement(By by, String... labelName)
     {
         try {
             return driver.findElement(by);
@@ -41,17 +41,24 @@ public class ElementUtils {
 
         catch (NoSuchElementException e4)
         {
-            reports.logReportsToTheFile(LogStatus.FAIL_SCREENSHOT,"Element is not found for the given locator: " + labelName);
-            throw new GenericExceptions("Element is not found for the given locator: " + labelName);
+            if(labelName.length>0)
+                throw new GenericExceptions("Element is not found for the given locator: " + labelName);
+            else
+                throw new GenericExceptions("Element is not found for the given locator");
+
         }
 
         catch (StaleElementReferenceException e5)
         {
-            throw new GenericExceptions("Element is stale for the  " + labelName+" please check it");
+            if(labelName.length>0)
+                throw new GenericExceptions("Element is stale for the  " + labelName+" please check it");
+            else
+                throw new GenericExceptions("Element is stale please check it");
+
         }
     }
 
-    public WebElement findElement(By by, int time,String labelName)
+    public WebElement findElement(By by, int time,String... labelName)
     {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
@@ -62,13 +69,19 @@ public class ElementUtils {
 
         catch (NoSuchElementException e4)
         {
-            reports.logReportsToTheFile(LogStatus.FAIL_SCREENSHOT,"Element is not found for the given locator: " + labelName+" after waiting for: "+time+" seconds" );
-            throw new GenericExceptions("Element is not found for the given locator: " + labelName);
+            if(labelName.length>0)
+                throw new GenericExceptions("Element is not found for the given locator: " + labelName);
+            else
+                throw new GenericExceptions("Element is not found for the given locator");
+
         }
 
         catch (TimeoutException e2)
         {
-            throw new GenericExceptions("Element is not found for the given locator: " + labelName+" after waiting for: "+time+" seconds");
+            if(labelName.length>0)
+                throw new GenericExceptions("Element is not found for the given locator: " + labelName+" after waiting for: "+time+" seconds");
+            else
+                throw new GenericExceptions("Element is not found for the given locator after waiting for: "+time+" seconds");
         }
     }
 

@@ -29,31 +29,26 @@
         <gemini-ai>LATEST</gemini-ai>
     </properties>
 
-    <!--<build>
+    <build>
         <plugins>
 
-            &lt;!&ndash; Compiler Plugin is used to compile the source code and scan for any errors or syntax issues &ndash;&gt;
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.14.0</version>
 
                 <configuration>
-                    <release>15</release>
+                    <release>21</release>
                 </configuration>
             </plugin>
 
-            &lt;!&ndash; Sure Fire Plugin is used to run the test cases or the source code as per the given configurations&ndash;&gt;
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.3</version>
 
-                <configuration> &lt;!&ndash; Here we mention which test cases do we need to run &ndash;&gt;
+                <configuration>
                     <forkCount>0</forkCount>
-                    &lt;!&ndash;<suiteXmlFiles>
-                        <suiteXmlFile>${suiteXml}</suiteXmlFile>
-                    </suiteXmlFiles>&ndash;&gt;
                     <includes>
                         <include>**/TestRunner.java</include>
                     </includes>
@@ -63,7 +58,7 @@
         </plugins>
 
     </build>
--->
+
     <dependencies>
 
         <!-- https://mvnrepository.com/artifact/com.google.genai/google-genai -->
@@ -239,17 +234,5 @@
         </dependency>
 
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>15</source>
-                    <target>15</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

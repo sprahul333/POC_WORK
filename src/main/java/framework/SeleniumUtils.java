@@ -4,15 +4,11 @@ import framework.constants.LogStatus;
 import lombok.AllArgsConstructor;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.Interaction;
-import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.interactions.WheelInput;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -25,8 +21,9 @@ public class SeleniumUtils {
     ElementUtils elementUtils;
     Reports reports;
     JSFunctions jsFunctions;
+    Actions actions;
 
-    public SeleniumUtils clickOn(By by, String labelName)
+    public SeleniumUtils clickOn(By by, String... labelName)
     {
         try {
             WebElement element = elementUtils.findElement(by,10,labelName);
@@ -37,32 +34,49 @@ public class SeleniumUtils {
             PathUtils.applySleep(500);
             reports.captureScreenshots();
 
-            reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Clicked on: <b>"+labelName+"</b>");
+            if(labelName.length>0)
+                reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Clicked on: <b>"+labelName[0]+"</b>");
+            else
+                reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Clicked on the element");
+
             jsFunctions.disableHighlight(element);
-            performMouseHover(element);
+            performMouseHover(by,labelName);
             element.click();
         }
 
         catch (ElementNotInteractableException e2)
         {
-            throw new GenericExceptions("Element is not interactable for " + labelName+" please check it");
+            if(labelName.length>0)
+                throw new GenericExceptions("Element is not interactable for " + labelName+" please check it");
+            else
+                throw new GenericExceptions("Element is not interactable for the element please check it");
+
         }
 
         catch (StaleElementReferenceException e1)
         {
-            throw new GenericExceptions("Element is stale for the  " + labelName+" please check it");
+            if(labelName.length>0)
+                throw new GenericExceptions("Element is stale for the  " + labelName+" please check it");
+            else
+                throw new GenericExceptions("Element is stale for the element please check it");
         }
 
         return this;
     }
 
-    public SeleniumUtils clickOnElements(By by, int time, String labelName)
+    public SeleniumUtils clickOnElements(By by, int time, String... labelName)
     {
         try {
             List<WebElement> element = elementUtils.findElements(by, time);
 
             if(element.isEmpty())
-                throw new GenericExceptions("Unable to find the element for " + labelName);
+            {
+                if(labelName.length>0)
+                    throw new GenericExceptions("Unable to find the element for " + labelName);
+                else
+                    throw new GenericExceptions("Unable to find the elements");
+
+            }
 
             element.stream().forEach(e ->
             {
@@ -98,7 +112,7 @@ public class SeleniumUtils {
         return this;
     }
 
-    public String getTextBoxAttribute(By by, String labelName)
+    public String getTextBoxAttribute(By by, String... labelName)
     {
         WebElement element = elementUtils.findElement(by,labelName);
         Optional.ofNullable(element).orElseThrow(() -> new GenericExceptions("Unable to find the element for " + labelName));
@@ -113,7 +127,7 @@ public class SeleniumUtils {
         return this;
     }
 
-    public void typeOn(By by,String data,String labelName)
+    public void typeOn(By by,String data,String... labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
 
@@ -132,7 +146,11 @@ public class SeleniumUtils {
         jsFunctions.higlightElement(element);
 
         element.sendKeys(data);
-        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Entered Data for: <b>"+labelName+"</b> is: <b>"+data+"</b>");
+        
+        if(labelName.length>0)
+            reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Entered Data for: <b>"+labelName+"</b> is: <b>"+data+"</b>");
+        else
+            reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Entered Data for <b>"+data+"</b>");
         jsFunctions.disableHighlight(element);
 
     }
@@ -205,14 +223,17 @@ public class SeleniumUtils {
         return driver.getWindowHandle();
     }
 
-    public void checkIfElementIsLoaded(By by,String labelName)
+    public void checkIfElementIsLoaded(By by,String... labelName)
     {
         while (elementUtils.findElements(by).size()==0)
         {
             PathUtils.applySleep(10000);
         }
 
-        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Element is loaded for: "+labelName);
+        if(labelName.length>0)
+            reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Element is loaded for: "+labelName);
+        else
+            reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Element is loaded");
     }
 
     public Optional<Alert> checkIfAlertIsPresent(int sec)
@@ -264,19 +285,16 @@ public class SeleniumUtils {
                 .orElseThrow(()->new GenericExceptions("Alert is not present"));
     }
 
-    public void performMouseHover(WebElement element)
-    {
-        Actions a1=new Actions(driver);
-        a1.moveToElement(element).build().perform();
-    }
-
-
-    public SeleniumUtils performMouseHover(By by,String labelName)
+    public SeleniumUtils performMouseHover(By by,String... labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
-        Actions a1=new Actions(driver);
-        a1.moveToElement(element).build().perform();
+        actions.moveToElement(element).build().perform();
+        return this;
+    }
 
+    public SeleniumUtils performMouseHover(WebElement element,String... labelName)
+    {
+        actions.moveToElement(element).build().perform();
         return this;
     }
 
@@ -285,28 +303,22 @@ public class SeleniumUtils {
         WebElement source=elementUtils.findElement(sourcePath,10,"Source");
         WebElement destination=elementUtils.findElement(destPath,10,"Destination");
 
-        Actions a1=new Actions(driver);
-        a1.dragAndDrop(source,destination).build().perform();
+        actions.dragAndDrop(source,destination).build().perform();
 
         return this;
     }
 
-    public SeleniumUtils performRightClick(By by,String labelName)
+    public SeleniumUtils performRightClick(By by,String... labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
-
-        Actions a1=new Actions(driver);
-        a1.contextClick(element).build().perform();
-
+        actions.contextClick(element).build().perform();
         return this;
     }
 
-    public void performDoubleClick(By by,String labelName)
+    public void performDoubleClick(By by,String... labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
-
-        Actions a1=new Actions(driver);
-        a1.doubleClick(element).build().perform();
+        actions.doubleClick(element).build().perform();
     }
 
     public String getSelectedOption(By by)
@@ -316,7 +328,7 @@ public class SeleniumUtils {
         return s1.getFirstSelectedOption().getText();
     }
 
-    public SeleniumUtils selectOption(By by, String option, String labelName)
+    public SeleniumUtils selectOption(By by, String option, String... labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
         Select s1=new Select(element);
@@ -368,7 +380,7 @@ public class SeleniumUtils {
         return this;
     }
 
-    public String getElementText(By by,String labelName)
+    public String getElementText(By by,String... labelName)
     {
         WebElement element=elementUtils.findElement(by,10,labelName);
 
@@ -381,7 +393,10 @@ public class SeleniumUtils {
         reports.captureScreenshots();
         jsFunctions.disableHighlight(element);
 
-        reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Text Fetched for: "+labelName+" is: "+element.getText());
+        if(labelName.length>0)
+            reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Text Fetched for: "+labelName+" is: "+element.getText());
+        else
+            reports.logReportsToTheFile(LogStatus.INFO_SCREENSHOT,"Text Fetched is: "+element.getText());
         return element.getText();
     }
 
@@ -397,7 +412,7 @@ public class SeleniumUtils {
         }
     }
 
-    public SeleniumUtils switchToFrame(WebElement element,String labelName)
+    public SeleniumUtils switchToFrame(WebElement element,String... labelName)
     {
         try {
             driver.switchTo().frame(element);
@@ -405,13 +420,16 @@ public class SeleniumUtils {
 
         catch (NoSuchFrameException e1)
         {
-            throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
+            if(labelName.length>0)
+                throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
+            else
+                throw new GenericExceptions("Unable to switch to the frame on the basis of the element");
         }
 
         return this;
     }
 
-    public SeleniumUtils switchToFrame(WebElement element,String labelName,int time)
+    public SeleniumUtils switchToFrame(WebElement element,int time,String... labelName)
     {
         try {
             WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(time));
@@ -421,14 +439,17 @@ public class SeleniumUtils {
 
         catch (NoSuchFrameException e1)
         {
-            throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
+            if(labelName.length>0)
+                throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
+            else
+                throw new GenericExceptions("Unable to switch to the frame on the basis of element");
         }
 
         return this;
     }
 
 
-    public SeleniumUtils switchToFrame(By by,String labelName)
+    public SeleniumUtils switchToFrame(By by,String... labelName)
     {
         WebElement element=elementUtils.findElement(by);
 
@@ -438,13 +459,16 @@ public class SeleniumUtils {
 
         catch (NoSuchFrameException e1)
         {
-            throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
+            if(labelName.length>0)
+                throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
+            else
+                throw new GenericExceptions("Unable to switch to the frame with elemeent");
         }
 
         return this;
     }
 
-    public SeleniumUtils switchToFrame(By by,String labelName, int time)
+    public SeleniumUtils switchToFrame(By by,int time,String... labelName)
     {
         WebElement element=elementUtils.findElement(by);
 
@@ -456,7 +480,10 @@ public class SeleniumUtils {
 
         catch (NoSuchFrameException e1)
         {
-            throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
+            if(labelName.length>0)
+                throw new GenericExceptions("Unable to switch to the frame with element: "+labelName);
+            else
+                throw new GenericExceptions("Unable to switch to the frame ");
         }
 
         return this;
