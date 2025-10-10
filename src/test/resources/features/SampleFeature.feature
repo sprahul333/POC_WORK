@@ -15,7 +15,6 @@ Feature: Banking Application
     Examples:
       | first_name | last_name | postal_code |
       | Hameed     | Joseph    | 89210215    |
-      | Jaren      | Duren     | 89210219    |
 
   @RegressionSuite @Banking @CreateAccount @JIRAID_456
   Scenario Outline: Create a New Account

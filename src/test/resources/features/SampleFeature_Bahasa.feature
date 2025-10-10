@@ -34,4 +34,4 @@ Fitur: Aplikasi Perbankan
 
     Contoh:
       | nama_depan | nama_belakang | kode_pos | mata_uang |
-      | Hameed     | Joseph        | 89210215 | Dolar     |
+      | Hameed     | Joseph        | 89210215 | Dollar    |
