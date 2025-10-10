@@ -4,7 +4,7 @@ Fitur: Aplikasi Perbankan
   Latar Belakang:
     Dengan Luncurkan Aplikasi
 
-  @RegressionSuite @Banking @CreateCustomer
+  @RegressionSuite @Banking @CreateCustomer @JIRAID_123
   Skenario konsep: Buat pelanggan baru dan verifikasi
     Dengan Navigasi ke Layar Manajer Bank
     Ketika Klik Tambah Pelanggan
