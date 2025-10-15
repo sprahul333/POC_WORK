@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+
+    <test verbose="2" preserve-order="true"
+          name="Passion Flow - Chrome">
+
+        <parameter name="Browser" value="Chrome"></parameter>
+        <classes>
+            <class name="runners.TestRunner"></class>
+        </classes>
+    </test>
+
+
+    <test verbose="2" preserve-order="true"
+          name="Passion Flow - Firefox">
+
+        <parameter name="Browser" value="Firefox"></parameter>
+        <classes>
+            <class name="runners.TestRunner"></class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true"
+          name="Passion Flow - Edge">
+
+        <parameter name="Browser" value="Edge"></parameter>
+        <classes>
+            <class name="runners.TestRunner"></class>
+        </classes>
+    </test>
+
+
+</suite>
