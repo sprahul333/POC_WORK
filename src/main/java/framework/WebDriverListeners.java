@@ -3,8 +3,6 @@ package framework;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.WebDriverListener;
 
-//Purpose of this class is to implement the WebDriverListener interface
-//We will listen to all the activities done by webdriver
 public class WebDriverListeners implements WebDriverListener
 {
     public void beforeClick(WebElement element) {

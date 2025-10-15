@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 
 public class ReusableLibrary {
 
-    //ThreadLocal ensures that each and every thread will have a seperate TestUtil Object
     public static ThreadLocal<TestUtil> testUtilThread = new ThreadLocal<TestUtil>();
 
     protected TestUtil testUtil=testUtilThread.get();

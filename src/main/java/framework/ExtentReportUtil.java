@@ -6,7 +6,6 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class ExtentReportUtil {
 
-    //Configuring my Extent Reports Object
     public synchronized ExtentReports getExtentReports(String testCaseName) {
 
         ExtentSparkReporter sparkReporter;

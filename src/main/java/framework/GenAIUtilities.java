@@ -4,7 +4,7 @@ import com.google.genai.Client;
 import com.google.genai.types.GenerateContentResponse;
 import lombok.experimental.UtilityClass;
 
-@UtilityClass //It marks all the methods as static in nature and prevents any object creation for the class
+@UtilityClass
 public class GenAIUtilities {
 
     Client client;

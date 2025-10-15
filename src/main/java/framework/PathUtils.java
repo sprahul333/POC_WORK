@@ -8,7 +8,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//This class is specifically used for storing all the paths related to the project
 @UtilityClass
 public class PathUtils {
 

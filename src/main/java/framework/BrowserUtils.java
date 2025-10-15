@@ -1,6 +1,8 @@
 package framework;
 
+import lombok.AccessLevel;
 import lombok.SneakyThrows;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.UtilityClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,14 +10,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 
-//In this class, every method is static
-//We want to ensure that no one creates an object of this class
-@UtilityClass //Ensures that all the methods in this class are static and no one will be in a position to create the objects of this class
-//It ensures that all the variables are static in nature
+
+@UtilityClass
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BrowserUtils {
 
-    private OptionsManager options = new OptionsManager();
-    private PropertiesUtil propertiesUtil=new PropertiesUtil();
+    OptionsManager options = new OptionsManager();
+    PropertiesUtil propertiesUtil=new PropertiesUtil();
 
     //Killing all the existing browsers
     @SneakyThrows

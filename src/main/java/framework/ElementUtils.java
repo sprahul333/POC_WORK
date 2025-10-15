@@ -2,6 +2,7 @@ package framework;
 
 import framework.constants.LogStatus;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -10,6 +11,7 @@ import java.time.Duration;
 import java.util.List;
 
 @AllArgsConstructor
+@FieldDefaults(makeFinal = true, level = lombok.AccessLevel.PRIVATE)
 public class ElementUtils {
 
     WebDriver driver;

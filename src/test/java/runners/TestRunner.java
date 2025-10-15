@@ -2,21 +2,23 @@ package runners;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Optional;
 
 @CucumberOptions(
-        features = "./src/test/resources/features/SampleFeature.feature", //Path of the feature files
-        glue = "stepDefs", //Path/Package of the step definitions
-        tags = "@CreateCustomer or @CreateAccount", //Mention the tag name to run the specific scenarios
-        monochrome = true, //If true, it will display the console output in a proper readable format
+        features = "./src/test/resources/features/SampleFeature.feature",
+        glue = "stepDefs",
+        tags = "@CreateCustomer or @CreateAccount",
+        monochrome = true,
         plugin = {"pretty", "html: CucumberHTMLReport.html","json: CucumberJSONReport.json","junit: CucumberJSONReport.xml"},
-        publish = true, //Helps in publishing the reports onto the cucumber cloud server
-        dryRun = false //Checking whether each step is having a method or step definition or not
+        publish = true,
+        dryRun = false
 )
 
-public class TestRunner extends AbstractTestNGCucumberTests {
-
-    @DataProvider(parallel = false)
+public class TestRunner extends AbstractTestNGCucumberTests
+{
+    @DataProvider(parallel = true)
     public Object[][] scenarios()
     {
         return super.scenarios();

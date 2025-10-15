@@ -2,7 +2,6 @@ package framework;
 
 import lombok.experimental.UtilityClass;
 
-//Here we maintain all the sql queries that are required for the framework to run
 @UtilityClass
 public class SQLConstants {
 

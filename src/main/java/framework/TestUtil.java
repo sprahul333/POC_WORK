@@ -9,11 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.util.HashMap;
 import java.util.Map;
 
-//Main agenda of this class is to ensure that the framework objects need not be created again and again
-//Only one copy/instance of object is maintained
-
-//Purpose of this class is to maintain all the framework related objects
-@Data //Is a combination of Getter and setter
+@Data
 public class TestUtil {
 
     private WebDriver driver;
