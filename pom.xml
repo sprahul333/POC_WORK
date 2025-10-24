@@ -18,9 +18,16 @@
         <jackson-databind>LATEST</jackson-databind>
         <lombok-version>LATEST</lombok-version>
         <cucumber-version>LATEST</cucumber-version>
+        <extent-reports>LATEST</extent-reports>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extent-reports}</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>
